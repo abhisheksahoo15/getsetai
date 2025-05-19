@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Past Events | GetSetAI</title>
+  <style>
+    :root {
+      --primary: #1A1762;
+      --gradient-start: #00D2B4;
+      --gradient-end: #0096FF;
+      --white: #FFFFFF;
+      --light-gray: #F7F9FB;
+      --card-shadow: rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: var(--white);
+      color: var(--primary);
+      padding-top: 80px;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 1rem 2rem;
+      background-color: var(--white);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      z-index: 999;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo h2 {
+      font-weight: bold;
+      background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    .gallery-section {
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .gallery-section h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .event-card {
+      background-color: var(--light-gray);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px var(--card-shadow);
+      transition: transform 0.3s ease;
+    }
+
+    .event-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .event-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .event-content {
+      padding: 1rem;
+      text-align: left;
+    }
+
+    .event-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .event-meta {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 0.8rem;
+    }
+
+    .event-bio {
+      font-size: 0.95rem;
+      color: #444;
+    }
+
+    footer {
+      margin-top: 4rem;
+      padding: 2rem;
+      text-align: center;
+      background-color: var(--primary);
+      color: var(--white);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <h2>GetSetAI</h2>
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/events">Events</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="gallery-section">
+    <h1>Our Past Events</h1>
+    <p>Explore the milestones and memories we've created with our amazing community.</p>
+
+    <div class="card-grid">
+
+      <!-- Card 1 -->
+      <div class="event-card">
+        <img src="https://source.unsplash.com/600x400/?ai,tech" class="event-image" alt="Event 1" />
+        <div class="event-content">
+          <div class="event-title">AI Ideathon 2024</div>
+          <div class="event-meta">📅 March 15, 2024 | 📍 Delhi, India</div>
+          <div class="event-bio">A 24-hour hackathon that brought together 200+ students to solve real-world problems with AI.</div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="event-card">
+        <img src="https://source.unsplash.com/600x400/?coding,students" class="event-image" alt="Event 2" />
+        <div class="event-content">
+          <div class="event-title">CodeSprint Bootcamp</div>
+          <div class="event-meta">📅 Jan 10, 2024 | 📍 Bangalore, India</div>
+          <div class="event-bio">A 7-day immersive coding experience focused on Python, ML, and GitHub collaboration.</div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="event-card">
+        <img src="https://source.unsplash.com/600x400/?conference,teamwork" class="event-image" alt="Event 3" />
+        <div class="event-content">
+          <div class="event-title">Startup Talk Series</div>
+          <div class="event-meta">📅 Feb 18, 2024 | 📍 Raipur, Chhattisgarh</div>
+          <div class="event-bio">A speaker event featuring 6 startup founders sharing their journey, funding tips, and product strategies.</div>
+        </div>
+      </div>
+
+      <!-- More cards can be duplicated similarly -->
+
+    </div>
+  </section>
+
+  <footer>
+    © 2025 GetSetAI Community. Crafted with 🔥 and 💡 by future builders.
+  </footer>
+
+</body>
+</html>

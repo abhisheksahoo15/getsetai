@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us | GetSetAI</title>
+  <style>
+    :root {
+      --primary-dark-blue: #1A1762;
+      --gradient-start: #00D2B4;
+      --gradient-end: #0096FF;
+      --white: #FFFFFF;
+      --light-gray: #F5F5F5;
+      --black: #000000;
+      --navy-hover: #2E2C6C;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--white);
+      color: var(--primary-dark-blue);
+      line-height: 1.6;
+      padding-top: 80px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: var(--white);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .logo h2 {
+      color: var(--primary-dark-blue);
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: var(--black);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--gradient-start);
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background-color: var(--black);
+      margin: 4px 0;
+      transition: 0.3s;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        position: absolute;
+        top: 70px;
+        right: 0;
+        background-color: var(--white);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem 2rem;
+        width: 100%;
+        display: none;
+      }
+
+      nav.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+    }
+
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      background-color: var(--light-gray);
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      max-width: 900px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      color: var(--navy-hover);
+    }
+
+    .section {
+      padding: 4rem 2rem;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--gradient-end);
+    }
+
+    .section p {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    .info-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      flex: 1;
+      min-width: 250px;
+      background-color: var(--light-gray);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background-color: var(--primary-dark-blue);
+      color: var(--white);
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .section h2 {
+        font-size: 1.5rem;
+      }
+      .info-cards {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <h2><span class="gradient-text">GetSetAI</span></h2>
+    </div>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+    <nav id="navbar">
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/detail">Events</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>About <span class="gradient-text">GetSetAI</span></h1>
+    <p>
+      We are building India’s largest AI-first community — where learners, developers, and dreamers collaborate to solve real-world challenges using technology.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>💡 What We Do</h2>
+    <p>GetSetAI is a dynamic community that connects students and professionals passionate about Artificial Intelligence, Data Science, and cutting-edge technologies. We organize:</p>
+    <ul>
+      <li>📅 Hackathons and Ideathons</li>
+      <li>📚 Learning Bootcamps and Workshops</li>
+      <li>👩‍🏫 Mentorship Programs</li>
+      <li>💼 Career-Oriented Industry Sessions</li>
+      <li>🤝 Collaboration on Live Projects</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>🎯 Why We Do It</h2>
+    <p>We noticed a gap between what students learn and what industries expect. So, we aim to bridge this through:</p>
+    <div class="info-cards">
+      <div class="card">
+        <h3>Skill Alignment</h3>
+        <p>We help you learn exactly what the industry demands – AI, ML, Python, Cloud, DevOps, and more.</p>
+      </div>
+      <div class="card">
+        <h3>Hands-On Projects</h3>
+        <p>Instead of just theory, we build and showcase projects that can go on your resume and GitHub.</p>
+      </div>
+      <div class="card">
+        <h3>Community-First</h3>
+        <p>We grow together. Everyone contributes — from beginner to expert — in a safe, inclusive environment.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>🌍 Real-World Connection</h2>
+    <p>
+      Our events simulate real-world industry scenarios — DevSecOps pipelines, cloud deployment (Azure/Terraform), and use of modern tools like GitHub Actions, FastAPI, Django, and more.
+    </p>
+    <p>
+      Companies are looking for people who can **build**, **debug**, **deploy**, and **secure** apps. That’s exactly what we train you to do.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>🚀 Vision & Impact</h2>
+    <p>We aim to be the go-to platform for AI talent from small towns to top cities across India.</p>
+    <p>With every project, event, and mentor session, we’re turning ambition into action — and dreams into deployable solutions.</p>
+  </section>
+
+  <footer>
+    © 2025 GetSetAI Community | Built with 💙 for AI Enthusiasts
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById('navbar');
+      nav.classList.toggle('active');
+    }
+  </script>
+</body>
+</html>
