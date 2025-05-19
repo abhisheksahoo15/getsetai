@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submit Form</title>
+</head>
+<body>
+    <h2>User Form</h2>
+    <form action="/submit" method="post">
+        <label>Name:</label><br>
+        <input type="text" name="name"><br>
+        <label>Email:</label><br>
+        <input type="email" name="email"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    {% if msg %}
+        <p>{{ msg }}</p>
+    {% endif %}
+</body>
+</html>

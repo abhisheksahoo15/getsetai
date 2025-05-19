@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>1-Day Certification Workshop | GetSetAI</title>
+  <link rel="stylesheet" href="/static/css/styles.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+  --primary-dark-blue: #1A1762;
+  --gradient-start: #00D2B4;
+  --gradient-end: #0096FF;
+  --white: #FFFFFF;
+  --light-gray: #F5F5F5;
+  --black: #000000;
+  --navy-hover: #2E2C6C;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--white);
+  color: var(--primary-dark-blue);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--white);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.logo h2 {
+  letter-spacing: 3px;
+}
+
+.gradient-text {
+  background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+nav a {
+  margin: 0 1rem;
+  color: var(--black);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+nav a:hover {
+  color: var(--gradient-start);
+}
+
+.hero {
+  background-color: var(--light-gray);
+  padding: 6rem 2rem 2rem;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  margin: 0.5rem 0;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background-color: var(--primary-dark-blue);
+  color: var(--white);
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.btn:hover {
+  background-color: var(--navy-hover);
+}
+
+.topics, .mentors, .contact {
+  padding: 2rem;
+  text-align: center;
+}
+
+.topics ul {
+  list-style: none;
+  padding: 0;
+}
+
+.topics li {
+  margin: 0.5rem 0;
+}
+
+.mentor-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.mentor-card {
+  background-color: var(--white);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 250px;
+}
+
+.mentor-card img {
+  width: 100%;
+  border-radius: 50%;
+}
+
+.mentor-card h3 {
+  margin: 1rem 0 0.5rem;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem;
+  background-color: var(--primary-dark-blue);
+  color: var(--white);
+  margin-top: 2rem;
+}
+
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <h2><span class="gradient-text">GetSetAI</span></h2>
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/upcoming">Events</a>
+      <a href="#mentors">Mentors</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>1-Day Certification Workshop</h1>
+      <p>Organized by <b>GetSetAI Innovations</b></p>
+      <p><strong>Date:</strong> 23rd May 2025</p>
+      <p><strong>Venue:</strong> Shri Shankaracharya Mahavidyalaya, Junwani, Bhilai</p>
+      <a href="https://forms.gle/zFYo4ZRBTkYd7abP6" class="btn">Register Now</a>
+    </div>
+  </section>
+
+      <section class="topics">
+    <h2>Topics Covered</h2>
+    <ul>
+    <p>Here’s a concise 4-line description for the GetSetAI 1-Day Certification Workshop based on your info:
+
+    GetSetAI Innovations presents a 1-day certification workshop on May 23, 2025, at Shri Shankaracharya Mahavidyalaya, Bhilai.
+    Learn cutting-edge topics like Data Science, Machine Learning, DevOps, Cloud, and Business Analytics.
+    Meet expert mentors including Abhishek Shaoo, Kunal Sharma, and Manav Tiwari.
+    Register now to upskill and transform your tech career with hands-on guidance!</p>
+    </ul>
+  </section>
+
+  <!-- Topics Section -->
+  <section class="topics">
+    <h2>Topics Covered</h2>
+    <ul>
+      <li>Data Science</li>
+      <li>Machine Learning</li>
+      <li>DevOps</li>
+      <li>Cloud Technologies</li>
+      <li>Business Data & Stock Analytics</li>
+      <li>Designing</li>
+    </ul>
+  </section>
+
+
+
+  <!-- Mentors Section -->
+  <section class="mentors" id="mentors">
+    <h2>Meet Our Mentors</h2>
+    <div class="mentor-cards">
+      <div class="mentor-card">
+        <img src="/static/images/abhishek.jpg" alt="Abhishek Shaoo">
+        <h3>Abhishek Shaoo</h3>
+        <p>Data Scientist | Cloud & DevOps Specialist</p>
+      </div>
+      <div class="mentor-card">
+        <img src="/static/images/kunal.jpg" alt="Kunal Sharma">
+        <h3>Kunal Sharma</h3>
+        <p>ML & AI Practitioner | Analytics Trainer</p>
+      </div>
+      <div class="mentor-card">
+        <img src="/static/images/manav.jpg" alt="Manav Tiwari">
+        <h3>Manav Tiwari</h3>
+        <p>UI/UX Designer | Tech Enthusiast</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <h2>Contact & Registration</h2>
+    <p><strong>Phone:</strong> +91 8349948003</p>
+    <p><strong>Email:</strong> innovationsgetsetai@gmail.com</p>
+    <p><strong>Website:</strong> <a href="https://getsetai.in" target="_blank">getsetai.in</a></p>
+    <p><strong>Registration:</strong> <a href="https://forms.gle/zFYo4ZRBTkYd7abP6" target="_blank">Click here to register</a></p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 GetSetAI Community | Made with 💙 for AI enthusiasts</p>
+  </footer>
+</body>
+</html>
