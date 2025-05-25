@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Past Event - GetSetAI</title>
+  <style>
+    :root {
+      --primary-dark-blue: #1A1762;
+      --gradient-start: #00D2B4;
+      --gradient-end: #0096FF;
+      --white: #FFFFFF;
+      --light-gray: #F5F5F5;
+      --black: #000000;
+      --navy-hover: #2E2C6C;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--white);
+      color: var(--primary-dark-blue);
+      line-height: 1.6;
+      padding-top: 80px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: var(--white);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .logo h2 {
+      letter-spacing: 3px;
+      background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: var(--black);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--gradient-start);
+    }
+
+    .hero-event {
+      text-align: center;
+      padding: 4rem 2rem;
+      background-color: var(--light-gray);
+    }
+
+    .hero-event img {
+      width: 90%;
+      max-width: 1000px;
+      border-radius: 10px;
+      margin: 2rem 0;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .content-section {
+      padding: 3rem 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .content-section h3 {
+      margin-bottom: 1rem;
+      color: var(--gradient-start);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      padding: 2rem;
+    }
+
+    .gallery img, .gallery video {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background-color: var(--primary-dark-blue);
+      color: var(--white);
+    }
+
+    @media (max-width: 768px) {
+      .hero-event img {
+        width: 100%;
+      }
+    }
+
+
+
+
+    change in behind team 
+    .team-section {
+  background-color: var(--light-gray);
+  padding: 3rem 2rem;
+  border-radius: 12px;
+  margin-top: 2rem;
+}
+
+.team-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 2rem;
+  margin-top: 2rem;
+  background-color: var(--white);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+}
+
+.member {
+  text-align: center;
+  width: 150px;
+}
+
+.member img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--gradient-start);
+  margin-bottom: 0.5rem;
+}
+
+.member h4 {
+  margin: 0.5rem 0 0.25rem;
+  font-size: 1rem;
+  color: var(--primary-dark-blue);
+}
+
+.member p {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+
+speaker
+
+.speaker-section {
+  background-color: var(--white);
+  padding: 3rem 2rem;
+  border-radius: 12px;
+  margin-top: 2rem;
+}
+
+.speaker-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.speaker {
+  text-align: center;
+  width: 180px;
+}
+
+.speaker img {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--gradient-end);
+  margin-bottom: 0.5rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.speaker h4 {
+  margin: 0.5rem 0 0.25rem;
+  font-size: 1.05rem;
+  color: var(--primary-dark-blue);
+}
+
+.speaker p {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <h2>GetSetAI</h2>
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about/">About</a>
+      <a href="/gallery">Past Events</a>
+      <a href="/static/docu/Brocher.pdf">Brochure</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero-event">
+    <h2>🚀 AI & Python Bootcamp - April 2025</h2>
+    <img src="/static/images/ssmv1/banner.jpg" alt="AI Bootcamp">
+    <p>A hands-on experience that brought over 300 students together to dive into the world of Python, Data Science, and Artificial Intelligence. Held virtually and physically, this event empowered beginners and enthusiasts alike!</p>
+  </section>
+
+  <section class="content-section">
+    <h3>📚 About the Session</h3>
+    <p>This bootcamp covered the fundamentals of Python, Data Science workflows, and an introduction to machine learning models. Students worked on real-world datasets, created mini-projects, and presented their work at the end of the session. It wasn’t just about learning — it was about building and collaborating.</p>
+  </section>
+
+  <section class="content-section speaker-section">
+  <h3>🎤 Speakers of the Event</h3>
+  <div class="speaker-card">
+    <div class="speaker">
+      <img src="/static/images/ssmv1/abhishek.jpg" alt="Abhishek sahoo">
+      <h4>Abhishek sahoo</h4>
+      <p>Data science and Devops </p>
+    </div>
+
+  </div>
+</section>
+
+
+      <div class="gallery">
+      <img src="/static/images/ssmv1/abiintrect.jpg" alt="Event 1">
+      <img src="/static/images/ssmv1/public.jpg" alt="Event 2">
+      <img src="/static/images/ssmv1/public2.jpg" alt="Event 3">
+      <video controls>
+        <source src="/static/videos/highlight.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+
+  <section class="content-section">
+    <h3>🎉 Highlights</h3>
+    <ul>
+      <li>✅ Live coding & project walkthroughs</li>
+      <li>✅ Guest speakers from the AI industry</li>
+      <li>✅ Breakout sessions for Q&A and peer collaboration</li>
+      <li>✅ Swag kits and participation certificates</li>
+    </ul>
+  </section>
+
+  <section class="content-section">
+    <h3>📸 Glimpses from the Event</h3>
+    <div class="gallery">
+      <img src="/static/images/ssmv1/openser.jpg" alt="Event 1">
+      <img src="/static/images/event2.jpg" alt="Event 2">
+      <img src="/static/images/event3.jpg" alt="Event 3">
+      <video controls>
+        <source src="/static/videos/highlight.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </section>
+
+  <section class="content-section team-section">
+  <h3>🤝 Hands Behind the Event</h3>
+  <div class="team-card">
+    <div class="member">
+      <img src="/static/images/team/harsh.jpg" alt="Harsh Vaishnav">
+      <h4>Harsh Vaishnav</h4>
+      <p>Event Manager</p>
+    </div>
+    <div class="member">
+      <img src="/static/images/team/anusthaa.jpg" alt="Anusthaa Mittal">
+      <h4>Anusthaa Mittal</h4>
+      <p>Host</p>
+    </div>
+    <div class="member">
+      <img src="/static/images/ssmv1/harnish.jpg" alt="Harnish Chabbra">
+      <h4>Harnish Chabbra</h4>
+      <p>Online Management</p>
+    </div>
+    <div class="member">
+      <img src="/static/images/ssmv1/sanidhya.jpg" alt="Sanidhya Mishra">
+      <h4>Sanidhya Mishra</h4>
+      <p>Technical Advisor</p>
+    </div>
+    <div class="member">
+      <img src="/static/images/team/dev.jpg" alt="Dev Kumar Dey">
+      <h4>Dev Kumar Dey</h4>
+      <p>Volunteer</p>
+    </div>
+  </div>
+</section>
+
+
+  <footer>
+    © 2025 GetSetAI Community | Made with 💙 for AI enthusiasts
+  </footer>
+</body>
+</html>

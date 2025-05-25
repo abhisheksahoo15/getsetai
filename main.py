@@ -42,7 +42,15 @@ async def show_event_detail(request: Request):
 # ✅ Past Events Gallery Page
 @app.get("/gallery", response_class=HTMLResponse)
 async def show_event_gallery(request: Request):
-    return templates.TemplateResponse("eventGallery.html", {
+    return templates.TemplateResponse("eventgallary.html", {
+        "request": request,
+        "title": "Past Events"
+    })
+
+# ✅ Past Events Gallery Page
+@app.get("/ssmv", response_class=HTMLResponse)
+async def show_event_gallery(request: Request):
+    return templates.TemplateResponse("pastevents/ssmv1.html", {
         "request": request,
         "title": "Past Events"
     })

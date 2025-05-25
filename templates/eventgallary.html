@@ -119,6 +119,23 @@
       color: #444;
     }
 
+    .event-card a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .event-card a:focus,
+    .event-card a:active {
+      outline: none;
+      box-shadow: none;
+    }
+
+    .event-card a:hover {
+      text-decoration: none;
+      opacity: 0.95;
+    }
+
     footer {
       margin-top: 4rem;
       padding: 2rem;
@@ -148,37 +165,41 @@
 
     <div class="card-grid">
 
-      <!-- Card 1
+      <!-- Card 1 -->
       <div class="event-card">
-        <img src="https://source.unsplash.com/600x400/?ai,tech" class="event-image" alt="Event 1" />
-        <div class="event-content">
-          <div class="event-title">AI Ideathon 2024</div>
-          <div class="event-meta">📅 March 15, 2024 | 📍 Delhi, India</div>
-          <div class="event-bio">A 24-hour hackathon that brought together 200+ students to solve real-world problems with AI.</div>
-        </div>
-      </div> -->
+        <a href="/ssmv">
+          <img src="/static/images/banner.png" class="event-image" alt="Event 1" />
+          <div class="event-content">
+            <div class="event-title">1 Day Certification Workshop</div>
+            <div class="event-meta">📅 23 MAY, 2025 | 📍 BHILAI NAGAR, India</div>
+            <div class="event-bio">A 24-hour hackathon that brought together 200+ students to solve real-world problems with AI.</div>
+          </div>
+        </a>
+      </div>
 
       <!-- Card 2 -->
       <div class="event-card">
-        <!-- <img src="https://source.unsplash.com/600x400/?coding,students" class="event-image" alt="Event 2" /> -->
-        <div class="event-content">
-          <div class="event-title"></div>
-          <div class="event-meta">📅 Will Update soon</div>
-          <!-- <div class="event-bio">A 7-day immersive coding experience focused on Python, ML, and GitHub collaboration.</div> -->
-        </div>
+        <a href="/contact">
+          <img src="https://source.unsplash.com/600x400/?programming,workshop" class="event-image" alt="Event 2" />
+          <div class="event-content">
+            <div class="event-title">GetSetCode Bootcamp</div>
+            <div class="event-meta">📅 Will update soon</div>
+            <div class="event-bio">A 7-day immersive coding experience focused on Python, ML, and GitHub collaboration.</div>
+          </div>
+        </a>
       </div>
 
-      <!-- Card 3
+      <!-- Card 3 -->
       <div class="event-card">
-        <img src="https://source.unsplash.com/600x400/?conference,teamwork" class="event-image" alt="Event 3" />
-        <div class="event-content">
-          <div class="event-title">Startup Talk Series</div>
-          <div class="event-meta">📅 Feb 18, 2024 | 📍 Raipur, Chhattisgarh</div>
-          <div class="event-bio">A speaker event featuring 6 startup founders sharing their journey, funding tips, and product strategies.</div>
-        </div>
-      </div> -->
-
-      <!-- More cards can be duplicated similarly -->
+        <a href="/contact">
+          <img src="https://source.unsplash.com/600x400/?startup,conference" class="event-image" alt="Event 3" />
+          <div class="event-content">
+            <div class="event-title">Startup Talk Series</div>
+            <div class="event-meta">📅 Feb 18, 2024 | 📍 Raipur, Chhattisgarh</div>
+            <div class="event-bio">A speaker event featuring 6 startup founders sharing their journey, funding tips, and product strategies.</div>
+          </div>
+        </a>
+      </div>
 
     </div>
   </section>
