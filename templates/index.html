@@ -194,6 +194,47 @@
       }
     }
 
+
+    /* countdown */
+        .countdown-container {
+      text-align: center;
+      background: #ffffff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      color: #333;
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #ff4500;
+    }
+
+    .time-box {
+      text-align: center;
+    }
+
+    .label {
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    @media (max-width: 500px) {
+      .countdown {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+
     
   </style>
 
@@ -215,7 +256,7 @@
     <nav id="navbar">
       <a href="#">Home</a>
       <a href="/about/">About</a>
-      <a href="/gallery/">past Events</a>
+      <a href="/gallery/">Past Events</a>
       <a href="/static/docu/Brocher.pdf">Brochure</a>
       <a href="/contact/">Contact</a>
     </nav>
@@ -234,8 +275,33 @@
     <img src="/static/images/banner2.jpg" alt="GetSetAI Banner" />
     <!-- <a href="/detail/"><button class="btn">Know More About this event</button></a><br>
     <a href="/upcoming/"><button class="btn">See All Upcoming Events</button></a> -->
-    <a href="/static/docu/Brocher.pdf"><button class="btn">Brochure</button></a>
+    <a href="/static/docu/Brocher.pdf"><button class="btn">Brochure</button></a><br>
+        <div class="countdown-container">
+    <h1><b style="color: red;">OFFER</b> Valid Till 31 May 2025 – 12:00 AM</h1>
+
+    <div class="countdown" id="countdown">
+      <div class="time-box">
+        <div id="days">00</div>
+        <div class="label">Days</div>
+      </div>
+      <div class="time-box">
+        <div id="hours">00</div>
+        <div class="label">Hours</div>
+      </div>
+      <div class="time-box">
+        <div id="minutes">00</div>
+        <div class="label">Minutes</div>
+      </div>
+      <div class="time-box">
+        <div id="seconds">00</div>
+        <div class="label">Seconds</div>
+      </div>
+    </div>
+  </div>
+
   </section>
+
+
 
   <section class="mission-section" id="mission">
     <div class="mission-box">
@@ -257,6 +323,33 @@
       const nav = document.getElementById('navbar');
       nav.classList.toggle('active');
     }
+  </script>
+
+
+<script>
+    const countdown = () => {
+      const endDate = new Date("May 31, 2025 00:00:00").getTime();
+      const now = new Date().getTime();
+      const distance = endDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+      document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+      document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+      document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("countdown").innerHTML = "<div>Countdown Ended!</div>";
+      }
+    };
+
+    const x = setInterval(countdown, 1000);
+    countdown(); // Initial call
   </script>
 </body>
 </html>
