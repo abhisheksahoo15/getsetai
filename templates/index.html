@@ -6,14 +6,14 @@
   <title>GetSetAI Community</title>
 
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-TYKKRYZGT8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TYKKRYZGT8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TYKKRYZGT8');
+  </script>
 
-  gtag('config', 'G-TYKKRYZGT8');
-</script>
   <style>
     :root {
       --primary-dark-blue: #1A1762;
@@ -23,6 +23,7 @@
       --light-gray: #F5F5F5;
       --black: #000000;
       --navy-hover: #2E2C6C;
+      --orange: #ff4500;
     }
 
     * {
@@ -36,7 +37,7 @@
       background-color: var(--white);
       color: var(--primary-dark-blue);
       line-height: 1.6;
-      padding-top: 80px; /* Space for fixed header */
+      padding-top: 80px;
     }
 
     header {
@@ -81,14 +82,13 @@
       cursor: pointer;
     }
 
-.menu-toggle span {
-  width: 25px;
-  height: 3px;
-  background-color: var(--black); /* CHANGED TO BLACK */
-  margin: 4px 0;
-  transition: 0.3s;
-}
-
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background-color: var(--black);
+      margin: 4px 0;
+      transition: 0.3s;
+    }
 
     @media (max-width: 768px) {
       nav {
@@ -155,10 +155,55 @@
       border-radius: 8px;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      margin: 5px;
     }
 
     .btn:hover {
       background-color: var(--navy-hover);
+    }
+
+    .countdown-container {
+      text-align: center;
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      color: var(--white);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      margin-top: 2rem;
+    }
+
+    .countdown-container h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .info-features {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      padding: 4rem 2rem;
+      background-color: #f9f9f9;
+    }
+
+    .feature-box {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      margin: 1rem;
+      flex: 1;
+      min-width: 250px;
+      max-width: 350px;
+      transition: transform 0.3s;
+    }
+
+    .feature-box:hover {
+      transform: translateY(-8px);
+    }
+
+    .feature-box h3 {
+      margin-bottom: 10px;
+      color: var(--gradient-start);
     }
 
     .mission-section {
@@ -198,71 +243,23 @@
         font-size: 2rem;
       }
 
-      .mission-section {
+      .mission-section, .info-features {
         flex-direction: column;
         align-items: center;
       }
     }
-
-
-    /* countdown */
-        .countdown-container {
-      text-align: center;
-      background: #ffffff;
-      padding: 30px 40px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    h1 {
-      margin-bottom: 20px;
-      font-size: 1.8rem;
-      color: #333;
-    }
-
-    .countdown {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      font-size: 2rem;
-      font-weight: bold;
-      color: #ff4500;
-    }
-
-    .time-box {
-      text-align: center;
-    }
-
-    .label {
-      font-size: 0.8rem;
-      color: #666;
-    }
-
-    @media (max-width: 500px) {
-      .countdown {
-        flex-direction: column;
-        gap: 10px;
-      }
-    }
-
-    
   </style>
 
   <link rel="icon" type="image/png" href="{{ url_for('static', path='logo.png') }}">
-
 </head>
 <body>
   <header>
     <div class="logo">
       <h2><span class="gradient-text" style="letter-spacing: 3px;">GetSetAI</span></h2>
     </div>
-
     <div class="menu-toggle" onclick="toggleMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
+      <span></span><span></span><span></span>
     </div>
-
     <nav id="navbar">
       <a href="/">Home</a>
       <a href="/about/">About</a>
@@ -273,49 +270,38 @@
   </header>
 
   <section class="hero">
-    
     <h2>Welcome to <span class="gradient-text">GetSetAI Innovations</span></h2>
-    
-    <p>
-     <b>G e t S e t A I</b> is officially registered under the Ministry of Micro, Small
-& Medium Enterprises (MSME), <b>Government of India</b>.
- A vibrant AI community for learners, developers, and innovators. Collaborate, share knowledge, and build the future together.
-    </p>
-
+    <p><b>G e t S e t A I</b> is officially registered under the Ministry of Micro, Small & Medium Enterprises (MSME), <b>Government of India</b>. A vibrant AI community for learners, developers, and innovators. Collaborate, share knowledge, and build the future together.</p>
     <img src="/static/images/final_banner.png" alt="GetSetAI Banner" />
-    <!-- <a href="/detail/"><button class="btn">Know More About this event</button></a><br> -->
-    <a href="/upcoming/"><button class="btn">See All Upcoming Events</button></a><br>
-    <a href="https://razorpay.me/@getsetaiinnovations?amount=89HMs09uDz5J5tXbJBtk9w%3D%3D "><button class="btn">Take The Course</button></a><br>
-    <a href="/static/docu/Brocher.pdf"><button class="btn">Brochure</button></a><br>
-        <div class="countdown-container">
-    <h1><b style="color: red;">Join Hands With GetsetAi innovations</b> What After You Education ?</h1>
+    <a href="/upcoming/"><button class="btn">See All Upcoming Events</button></a>
+    <a href="https://razorpay.me/@getsetaiinnovations?amount=89HMs09uDz5J5tXbJBtk9w%3D%3D"><button class="btn">Take The Course</button></a>
+    <a href="/static/docu/Brocher.pdf"><button class="btn">Brochure</button></a>
 
-    <!-- <div class="countdown" id="countdown">
-      <div class="time-box">
-        <div id="days">00</div>
-        <div class="label">Days</div>
-      </div>
-      <div class="time-box">
-        <div id="hours">00</div>
-        <div class="label">Hours</div>
-      </div>
-      <div class="time-box">
-        <div id="minutes">00</div>
-        <div class="label">Minutes</div>
-      </div>
-      <div class="time-box">
-        <div id="seconds">00</div>
-        <div class="label">Seconds</div>
-      </div>
-    </div> -->
-
-
-  </div>
-
+    <!-- Creative Countdown Card -->
+    <div class="countdown-container">
+      <h1>📅 <b>Go Through Our Past Events</b></h1>
+      <p>We’ve conducted several insightful, hands-on AI workshops and community events to empower students and professionals.</p>
+      <a href="/gallery/"><button class="btn">Explore Gallery</button></a>
+    </div>
   </section>
 
+  <!-- 🌟 New Creative Section -->
+  <section class="info-features">
+    <div class="feature-box">
+      <h3>🔍 Real Projects</h3>
+      <p>Hands-on experience on real AI problems with mentorship and community support.</p>
+    </div>
+    <div class="feature-box">
+      <h3>🤝 Collaborative Learning</h3>
+      <p>Join like-minded individuals, brainstorm ideas, and work together to build cool solutions.</p>
+    </div>
+    <div class="feature-box">
+      <h3>🏆 Certificates & Recognition</h3>
+      <p>Earn MSME-backed certificates and stand out in your tech journey.</p>
+    </div>
+  </section>
 
-
+  <!-- 🧭 Mission & Vision -->
   <section class="mission-section" id="mission">
     <div class="mission-box">
       <h3>🌟 Our Mission</h3>
@@ -336,33 +322,6 @@
       const nav = document.getElementById('navbar');
       nav.classList.toggle('active');
     }
-  </script>
-
-
-<script>
-    const countdown = () => {
-      const endDate = new Date("May 31, 2025 00:00:00").getTime();
-      const now = new Date().getTime();
-      const distance = endDate - now;
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      document.getElementById("days").innerText = days < 10 ? "0" + days : days;
-      document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
-      document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
-      document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
-
-      if (distance < 0) {
-        clearInterval(x);
-        document.getElementById("countdown").innerHTML = "<div>Countdown Ended!</div>";
-      }
-    };
-
-    const x = setInterval(countdown, 1000);
-    countdown(); // Initial call
   </script>
 </body>
 </html>

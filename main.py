@@ -81,3 +81,13 @@ async def show_event_gallery(request: Request):
         "request": request,
         "title": "about"
     })
+
+
+
+# ✅ Past Events Gallery Page
+@app.get("/shivam-institute", response_class=HTMLResponse)
+async def show_event_gallery(request: Request):
+    return templates.TemplateResponse("pastevents/shivaminst.html", {
+        "request": request,
+        "title": "Past Events"
+    })

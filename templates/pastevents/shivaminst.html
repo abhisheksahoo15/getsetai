@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shivam Institute Seminar | GetSetAI</title>
+  <style>
+    :root {
+      --primary: #1A1762;
+      --gradient-start: #00D2B4;
+      --gradient-end: #0096FF;
+      --white: #FFFFFF;
+      --light-gray: #F7F9FB;
+      --card-shadow: rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: var(--white);
+      color: var(--primary);
+      padding-top: 80px;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 1rem 2rem;
+      background-color: var(--white);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      z-index: 999;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo h2 {
+      font-weight: bold;
+      background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    .gallery-section {
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .gallery-section h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .gallery-section p {
+      font-size: 1.1rem;
+      color: #444;
+      max-width: 700px;
+      margin: auto;
+      margin-bottom: 2rem;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .event-card {
+      background-color: var(--light-gray);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px var(--card-shadow);
+      transition: transform 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .event-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .event-card a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .event-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .event-content {
+      padding: 1rem;
+      text-align: left;
+    }
+
+    .event-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .event-meta {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 0.8rem;
+    }
+
+    .event-bio {
+      font-size: 0.95rem;
+      color: #444;
+    }
+
+    .speaker-img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      margin-top: 1rem;
+      border-top: 1px solid #ccc;
+    }
+
+    .photo-gallery {
+      margin-top: 3rem;
+    }
+
+    .photo-gallery h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .photo-grid img {
+      width: 100%;
+      border-radius: 12px;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .team-section {
+      margin-top: 4rem;
+      padding: 3rem 1rem;
+      background-color: var(--light-gray);
+      text-align: center;
+    }
+
+    .team-section h2 {
+      font-size: 2.2rem;
+      margin-bottom: 2rem;
+      background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      justify-items: center;
+    }
+
+    .team-member {
+      background: var(--white);
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px var(--card-shadow);
+      text-align: center;
+    }
+
+    .team-member img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 0.8rem;
+    }
+
+    .team-member h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .team-member p {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    footer {
+      margin-top: 4rem;
+      padding: 2rem;
+      text-align: center;
+      background-color: var(--primary);
+      color: var(--white);
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <h2>GetSetAI</h2>
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/events">Events</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="gallery-section">
+    <h1>Shivam Institute Seminar Recap</h1>
+    <p>On May 28, 2025, GetSetAI collaborated with Shivam Institute of Computer to host a powerful seminar on tech career growth, AI, and future IT trends. Speaker <strong>Abhishek Sahoo</strong> inspired students beyond 12th grade with real-world direction and tools.</p>
+
+    <div class="card-grid">
+      <div class="event-card">
+        <a href="/shivam-institute">
+          <img src="/static/images/shivam_institute/housing_board_Banner.png" class="event-image" alt="Event Banner" />
+          <div class="event-content">
+            <div class="event-title">Seminar @ Shivam Institute</div>
+            <div class="event-meta">📅 31 MAY, 2025 | 📍 Bhilai Nagar Chhattisgarh</div>
+            <div class="event-bio">
+              💡 Talk on AI, Data Science & Career Paths after 12<br>
+              👨‍🏫 Director: Shivam Sir<br>
+
+            </div>
+          </div>
+          
+        </a>
+      </div>
+    </div>
+
+    <div class="photo-gallery">
+      <h2>Event Glimpses</h2>
+      <div class="photo-grid">
+        <img src="/static/images/shivam_institute/pc2.jpg" alt="Seminar 1">
+        <img src="/static/images/shivam_institute/pc1.jpg" alt="Seminar 2">
+        <img src="/static/images/shivam_institute/pc3.jpg" alt="Seminar 3">
+        <img src="/static/images/shivam_institute/pc5.jpg" alt="Seminar 4">
+              <video controls>
+        <source src="/static/images/shivam_institute/basevideo.mp4" type="video/mp4">
+      </video>
+        <img src="/static/images/shivam_institute/pc4.jpg"alt="Seminar 6">
+      </div>
+    </div>
+  </section>
+
+  <section class="team-section">
+    <h2>Hands Behind the Event</h2>
+    <div class="team-grid">
+      <div class="team-member">
+        <img src="/static/images/ssmv1/dev.jpg" alt="Dev Kumar Day">
+        <h4>Dev Kumar Day</h4>
+        <p>Event Head</p>
+      </div>
+      <div class="team-member">
+        <img src="/static/images/ssmv1/nagesh.jpg" alt="Nageshwar Yadav">
+        <h4>Nageshwar Yadav</h4>
+        <p>Organizer</p>
+      </div>
+      <div class="team-member">
+        <img src="/static/images/ssmv1/harsh.jpg" alt="Harsh Vaishnav">
+        <h4>Harsh Vaishnav</h4>
+        <p>Team Member</p>
+      </div>
+      <div class="team-member">
+        <img src="/static/images/ssmv1/sanidhya.jpg" alt="Sanidhya Mishra">
+        <h4>Sanidhya Mishra</h4>
+        <p>Team Member</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 GetSetAI Community. Crafted with 🔥 and 💡 by future builders.
+  </footer>
+
+</body>
+</html>
