@@ -158,6 +158,16 @@ async def show_event_gallery(request: Request):
         "title": "Past Events"
     })
 
+# ✅ Past Events Gallery Page
+@app.get("/innovate", response_class=HTMLResponse)
+async def show_event_gallery(request: Request):
+    return templates.TemplateResponse("pastevents/innovatex.html", {
+        "request": request,
+        "title": "Past Events"
+    })
+
+
+
 
 # ✅ Past Events Gallery Page
 @app.get("/details", response_class=HTMLResponse)
