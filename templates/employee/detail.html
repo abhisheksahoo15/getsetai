@@ -146,11 +146,14 @@
       <p><span class="label">Branch:</span> {{ employee.branch }}</p>
       <p><span class="label">Employee ID:</span> {{ employee.community_id }}</p>
 
-      <div class="description">
-        <p><strong>Bio:</strong> {{ employee.name}}{{ employee.bio or " is an integral part of GetSetAI and contributes immensely to the organization's growth and innovation." }}</p>
-        <p><strong>Expertise:</strong> {{ employee.designation }}{{ employee.expertise or "AI | ML | Community Building | Technical Leadership" }}</p>
-        <p><strong>Achievements:</strong> {{ employee.achievements or "Spearheaded multiple AI events, led technical teams, and inspired community innovation." }}</p>
-      </div>
+{% if employee.designation not in ['Chief Executive Officer', 'Managing Director'] %}
+  <div class="description">
+    <p><strong>Bio:</strong> {{ employee.name }}{{ employee.bio or " is an integral part of GetSetAI and contributes immensely to the organization's growth and innovation." }}</p>
+    <p><strong>Expertise:</strong> {{ employee.designation }}{{ employee.expertise or "AI | ML | Community Building | Technical Leadership" }}</p>
+    <p><strong>Achievements:</strong> {{ employee.achievements or "Spearheaded multiple AI events, led technical teams, and inspired community innovation." }}</p>
+  </div>
+{% endif %}
+
 
       <div class="contact-links">
         {% if employee.linkedin %}
