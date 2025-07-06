@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{{ employee.name }} | GetSetAI Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --primary-dark-blue: #1A1762;
+      --gradient-start: #00D2B4;
+      --gradient-end: #0096FF;
+      --white: #FFFFFF;
+      --light-gray: #F5F5F5;
+      --navy-hover: #2E2C6C;
+      --black: #000000;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--light-gray);
+      color: var(--primary-dark-blue);
+      padding: 2rem;
+    }
+
+    .profile-container {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .profile-image {
+      flex: 1;
+      text-align: center;
+    }
+
+    .profile-image img {
+      width: 220px;
+      height: 240px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .profile-details {
+      flex: 2;
+    }
+
+    .profile-details h1 {
+      font-size: 2.2rem;
+      background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    .profile-details p {
+      font-size: 1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .label {
+      font-weight: bold;
+      color: var(--black);
+    }
+
+    .description {
+      background-color: var(--light-gray);
+      padding: 1.2rem;
+      margin-top: 1.5rem;
+      border-radius: 10px;
+      font-size: 0.98rem;
+      line-height: 1.6;
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .contact-links {
+      margin-top: 1.5rem;
+    }
+
+    .contact-links a {
+      display: inline-block;
+      margin-right: 1rem;
+      color: var(--gradient-end);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-links a:hover {
+      color: var(--gradient-start);
+    }
+
+    .back-button {
+      display: block;
+      margin: 2rem auto 0;
+      text-align: center;
+    }
+
+    .back-button a {
+      color: var(--white);
+      background: var(--primary-dark-blue);
+      padding: 0.6rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .back-button a:hover {
+      background-color: var(--navy-hover);
+    }
+
+    @media (max-width: 768px) {
+      .profile-container {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .profile-details {
+        flex: unset;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="profile-container">
+    <div class="profile-image">
+      <img src="{{ employee.image }}" alt="{{ employee.name }}">
+    </div>
+    <div class="profile-details">
+      <h1>{{ employee.name }}</h1>
+      <p><span class="label">Designation:</span> {{ employee.designation }}</p>
+      <p><span class="label">Branch:</span> {{ employee.branch }}</p>
+      <p><span class="label">Employee ID:</span> {{ employee.community_id }}</p>
+
+      <div class="description">
+        <p><strong>Bio:</strong> {{ employee.name}}{{ employee.bio or " is an integral part of GetSetAI and contributes immensely to the organization's growth and innovation." }}</p>
+        <p><strong>Expertise:</strong> {{ employee.designation }}{{ employee.expertise or "AI | ML | Community Building | Technical Leadership" }}</p>
+        <p><strong>Achievements:</strong> {{ employee.achievements or "Spearheaded multiple AI events, led technical teams, and inspired community innovation." }}</p>
+      </div>
+
+      <div class="contact-links">
+        {% if employee.linkedin %}
+          <a href="{{ employee.linkedin }}" target="_blank">🔗 LinkedIn</a>
+        {% endif %}
+        {% if employee.email %}
+          <a href="mailto:{{ employee.email }}">✉️ Email</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="back-button">
+    <a href="/employees">← Back to Team Page</a>
+  </div>
+  
+</body>
+</html>

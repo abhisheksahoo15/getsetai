@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ title }}</title>
+
+  <link rel="icon" type="image/png" href="{{ url_for('static', path='logo.png') }}">
+
+  <style>
+    :root {
+      --primary-dark-blue: #1A1762;
+      --gradient-start: #00D2B4;
+      --gradient-end: #0096FF;
+      --white: #FFFFFF;
+      --light-gray: #F5F5F5;
+      --black: #000000;
+      --navy-hover: #2E2C6C;
+      --orange: #ff4500;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--white);
+      color: var(--primary-dark-blue);
+      line-height: 1.6;
+      padding-top: 80px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: var(--white);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .logo img {
+      height: 50px;
+      width: auto;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: var(--black);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--gradient-start);
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background-color: var(--black);
+      margin: 4px 0;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        position: absolute;
+        top: 70px;
+        right: 0;
+        background-color: var(--white);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem 2rem;
+        width: 100%;
+        display: none;
+      }
+
+      nav.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      font-size: 2.5rem;
+      background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .employee-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      width: 280px;
+      padding: 1.5rem;
+      transition: transform 0.3s;
+      text-align: center;
+    }
+
+    .employee-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .employee-card img {
+      width: 130px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .employee-card h2 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: #0096FF;
+    }
+
+    .employee-card p {
+      margin: 0.3rem 0;
+      font-size: 0.95rem;
+    }
+
+    .label {
+      font-weight: bold;
+      color: #333;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background-color: var(--primary-dark-blue);
+      color: var(--white);
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <h2><span class="gradient-text" style="letter-spacing: 3px;">GetSetAI Innovations</span></h2>
+    </div>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+    <nav id="navbar">
+      <a href="/">Home</a>
+      <a href="/about/">About</a>
+      <a href="/gallery/">Past Events</a>
+      <a href="/employees/">Our Team</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+  </header>
+
+  <h1>{{ title }}</h1>
+
+<div class="card-container">
+  {% for emp in employees %}
+    <a href="/employee/{{ emp.community_id }}" style="text-decoration: none; color: inherit;">
+      <div class="employee-card">
+        {% if emp.image %}
+          <img src="{{ emp.image }}" alt="{{ emp.name }}">
+        {% else %}
+          <img src="/static/images/employee/default.jpg" alt="No Image">
+        {% endif %}
+        <h2>{{ emp.name }}</h2>
+        <p><span class="label">Designation:</span> {{ emp.designation }}</p>
+        <p><span class="label">Branch:</span> {{ emp.branch }}</p>
+        <p><span class="label">Company ID:</span> {{ emp.community_id or 'N/A' }}</p>
+      </div>
+    </a>
+  {% endfor %}
+</div>
+
+  <footer>
+    © 2025 GetSetAI Community | Built for innovators.
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById('navbar');
+      nav.classList.toggle('active');
+    }
+  </script>
+</body>
+</html>
