@@ -36,6 +36,8 @@ async def show_chatbot(request: Request):
         "title": "TinyLlama Chatbot"
     })
 
+    
+
 @app.post("/chatbot", response_class=HTMLResponse)
 async def get_chatbot_response(request: Request, user_input: str = Form(...)):
     output = chatbot(user_input, max_new_tokens=100, do_sample=True, temperature=0.7)[0]['generated_text']
