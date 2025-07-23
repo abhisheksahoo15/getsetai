@@ -127,8 +127,3 @@ async def employee_detail(request: Request, emp_id: str):
 
 # ------------------ Custom 404 Handler ------------------
 
-@app.exception_handler(StarletteHTTPException)
-async def custom_http_exception_handler(request: Request, exc: StarletteHTTPException):
-    if exc.status_code == 404:
-        return templates.TemplateResponse("404.html", {"request": request}, status_code=404)
-    return await http_exception_handler(request, exc)
