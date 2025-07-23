@@ -13,13 +13,6 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
-# Load the chatbot model
-model_name = "bilalRahib/TinyLlama-NSFW-Chatbot"
-device = "cuda" if torch.cuda.is_available() else "cpu"
-
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForCausalLM.from_pretrained(model_name).to(device)
-chatbot = pipeline("text-generation", model=model, tokenizer=tokenizer, device=0 if device == "cuda" else -1)
 
 # ------------------ Routes ------------------
 
@@ -27,26 +20,6 @@ chatbot = pipeline("text-generation", model=model, tokenizer=tokenizer, device=0
 async def home(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, "title": "GetSetAI"})
 
-@app.get("/chatbot", response_class=HTMLResponse)
-async def show_chatbot(request: Request):
-    return templates.TemplateResponse("chatbot.html", {
-        "request": request,
-        "response": "",
-        "user_input": "",
-        "title": "TinyLlama Chatbot"
-    })
-
-    
-
-@app.post("/chatbot", response_class=HTMLResponse)
-async def get_chatbot_response(request: Request, user_input: str = Form(...)):
-    output = chatbot(user_input, max_new_tokens=100, do_sample=True, temperature=0.7)[0]['generated_text']
-    return templates.TemplateResponse("chatbot.html", {
-        "request": request,
-        "response": output,
-        "user_input": user_input,
-        "title": "TinyLlama Chatbot"
-    })
 
 @app.post("/chat", response_class=JSONResponse)
 async def chat(user_input: str = Form(...)):
@@ -126,4 +99,5 @@ async def employee_detail(request: Request, emp_id: str):
     })
 
 # ------------------ Custom 404 Handler ------------------
+
 
