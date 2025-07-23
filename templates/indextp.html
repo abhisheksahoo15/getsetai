@@ -249,83 +249,6 @@
         align-items: center;
       }
     }
-
-
-
-    .chatbot-section {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 25px;
-    background: #f9f9f9;
-    border-radius: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    font-family: 'Segoe UI', sans-serif;
-  }
-
-  .chatbot-section h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-  }
-
-  .chat-window {
-    height: 300px;
-    overflow-y: auto;
-    padding: 15px;
-    background: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    margin-bottom: 15px;
-  }
-
-  .chat-message {
-    margin-bottom: 12px;
-    padding: 10px 15px;
-    border-radius: 12px;
-    max-width: 80%;
-    line-height: 1.5;
-  }
-
-  .chat-message.bot {
-    background: #e6f3ff;
-    color: #000;
-    align-self: flex-start;
-  }
-
-  .chat-message.user {
-    background: #d4edda;
-    color: #000;
-    align-self: flex-end;
-    text-align: right;
-  }
-
-  .input-group {
-    display: flex;
-    gap: 10px;
-  }
-
-  #user-input {
-    flex-grow: 1;
-    padding: 10px 15px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 16px;
-  }
-
-  button {
-    padding: 10px 20px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-
-  button:hover {
-    background-color: #45a049;
-  }
   </style>
 
   <link rel="icon" type="image/png" href="{{ url_for('static', path='logo.png') }}">
@@ -499,51 +422,14 @@
       }, 600);
     }
 
-function getBotResponse(userMsg) {
-  userMsg = userMsg.toLowerCase();
-
-  if (userMsg.includes("hello") || userMsg.includes("hi") || userMsg.includes("hii") || userMsg.includes("hello world"))
-    return "Hi there! I'm GetSetBot 🤖. Ask me anything about our platform.";
-
-  if (userMsg.includes("what can you do"))
-    return "I can help you with info about GetSetAI, our projects, events, and how to get involved!";
-
-  if (userMsg.includes("getsetai") || userMsg.includes("what is getsetai"))
-    return "GetSetAI is a vibrant tech community focused on AI, ML, and building live impactful projects.";
-
-  if (userMsg.includes("founder") || userMsg.includes("ceo"))
-    return "The founder of GetSetAI is Abhishek Sahoo, and our CEO is Jagannath Ji.";
-
-  if (userMsg.includes("project") || userMsg.includes("projects"))
-    return "We offer live AI/ML projects, guided mentoring, and hands-on experience through our platform.";
-
-  if (userMsg.includes("ml") || userMsg.includes("machine learning"))
-    return "We run bootcamps and live sessions to teach ML with real-world problems.";
-
-  if (userMsg.includes("live") || userMsg.includes("live session"))
-    return "We host regular live sessions on Discord and YouTube. Stay connected for schedules.";
-
-  if (userMsg.includes("course") || userMsg.includes("bootcamp"))
-    return "Our upcoming ML bootcamp is focused on practical learning. Launching soon 🚀.";
-
-  if (userMsg.includes("ideathon") || userMsg.includes("hackathon"))
-    return "We frequently organize ideathons & hackathons. Great chance to build & collaborate with others.";
-
-  if (userMsg.includes("community") || userMsg.includes("members"))
-    return "Our community is active on Discord, Telegram, GitHub, and LinkedIn.";
-
-  if (userMsg.includes("contact") || userMsg.includes("email") || userMsg.includes("reach"))
-    return "You can reach us at: contact@getsetai.in or join our Discord for quick help.";
-
-  if (userMsg.includes("social") || userMsg.includes("links") || userMsg.includes("join"))
-    return "Join our Discord & Telegram from the footer links or reach out via contact@getsetai.in.";
-
-  if (userMsg.includes("bye") || userMsg.includes("thank"))
-    return "You're welcome! Have a great day 🚀. Come back anytime to chat!";
-
-  return "I'm still learning! You can ask community mentors on Discord for deeper queries. 😊";
-}
-
+    function generateBotReply(userMsg) {
+      userMsg = userMsg.toLowerCase();
+      if (userMsg.includes("hello") || userMsg.includes("hi")) return "Hi there! How can I help you today?";
+      if (userMsg.includes("project")) return "We offer live AI project mentoring. Join our Discord to explore!";
+      if (userMsg.includes("course")) return "We’re launching a new ML bootcamp soon. Stay tuned!";
+      if (userMsg.includes("community")) return "Our community is active on Discord, Telegram, and GitHub!";
+      return "I'm still learning! For more, ask our community mentors on Discord.";
+    }
   </script>
 </body>
 </html>
