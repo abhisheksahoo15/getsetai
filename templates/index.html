@@ -407,143 +407,143 @@
     © 2025 GetSetAI Community | Made with 💙 for AI enthusiasts
   </footer>
 
-  <script>
-    function toggleMenu() {
-      const nav = document.getElementById('navbar');
-      nav.classList.toggle('active');
-    }
-  </script>
+<script>
+  // Navbar toggle
+  function toggleMenu() {
+    const nav = document.getElementById('navbar');
+    nav.classList.toggle('active');
+  }
+</script>
 
+<script>
+  function sendMessage() {
+    const input = document.getElementById("user-input");
+    const message = input.value.trim();
+    const chatWindow = document.getElementById("chat-window");
 
-  <script>
-        const toggleButton = document.getElementById("chatbot-toggle");
-        const chatbotContainer = document.getElementById("chatbot-container");
-        const chatbotMessages = document.getElementById("chatbot-messages");
-        const userInput = document.getElementById("user-input");
+    if (message === "") return;
 
-        toggleButton.onclick = () => {
-            chatbotContainer.style.display = chatbotContainer.style.display === "none" ? "flex" : "none";
-        };
+    // Add user message
+    const userMsg = document.createElement("div");
+    userMsg.className = "chat-message user";
+    userMsg.textContent = message;
+    chatWindow.appendChild(userMsg);
 
-        async function sendMessage() {
-            const message = userInput.value.trim();
-            if (!message) return;
+    // Clear input
+    input.value = "";
 
-            // Add user message
-            const userMsg = document.createElement("div");
-            userMsg.className = "chatbot-user";
-            userMsg.textContent = message;
-            chatbotMessages.appendChild(userMsg);
-            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    // Scroll down
+    chatWindow.scrollTop = chatWindow.scrollHeight;
 
-            userInput.value = "";
-
-            // Send message to backend
-            try {
-                const response = await fetch("/chat", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ message }),
-                });
-
-                const data = await response.json();
-                const botMsg = document.createElement("div");
-                botMsg.className = "chatbot-bot";
-                botMsg.textContent = data.reply || "No response";
-                chatbotMessages.appendChild(botMsg);
-                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-            } catch (error) {
-                const botMsg = document.createElement("div");
-                botMsg.className = "chatbot-bot";
-                botMsg.textContent = "Error reaching chatbot.";
-                chatbotMessages.appendChild(botMsg);
-                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-            }
-        }
-
-        userInput.addEventListener("keypress", function (e) {
-            if (e.key === "Enter") sendMessage();
-        });
-    </script>
-
-
-  <script>
-    function sendMessage() {
-      const input = document.getElementById("user-input");
-      const message = input.value.trim();
-      const chatWindow = document.getElementById("chat-window");
-
-      if (message === "") return;
-
-      // Add user message
-      const userMsg = document.createElement("div");
-      userMsg.className = "chat-message user";
-      userMsg.textContent = message;
-      chatWindow.appendChild(userMsg);
-
-      // Clear input
-      input.value = "";
-
-      // Scroll down
+    // Simulate bot reply
+    setTimeout(() => {
+      const botMsg = document.createElement("div");
+      botMsg.className = "chat-message bot";
+      botMsg.textContent = getBotResponse(message);
+      chatWindow.appendChild(botMsg);
       chatWindow.scrollTop = chatWindow.scrollHeight;
+    }, 600);
+  }
 
-      // Simulate bot reply (Replace with actual backend call later)
-      setTimeout(() => {
-        const botMsg = document.createElement("div");
-        botMsg.className = "chat-message bot";
-        botMsg.textContent = generateBotReply(message);
-        chatWindow.appendChild(botMsg);
-        chatWindow.scrollTop = chatWindow.scrollHeight;
-      }, 600);
-    }
+  function getBotResponse(userMsg) {
+    userMsg = userMsg.toLowerCase();
 
-function getBotResponse(userMsg) {
-  userMsg = userMsg.toLowerCase();
+    if (userMsg.includes("hello") || userMsg.includes("hi") || userMsg.includes("hii") || userMsg.includes("who are you"))
+      return "Hi there! I'm GetSetBot 🤖. Ask me anything about our platform.";
 
-  if (userMsg.includes("hello") || userMsg.includes("hi") || userMsg.includes("hii") || userMsg.includes("hello world"))
-    return "Hi there! I'm GetSetBot 🤖. Ask me anything about our platform.";
+    if (userMsg.includes("what can you do"))
+      return "I can help you with info about GetSetAI, our projects, events, and how to get involved!";
 
-  if (userMsg.includes("what can you do"))
-    return "I can help you with info about GetSetAI, our projects, events, and how to get involved!";
+    if (userMsg.includes("getsetai") || userMsg.includes("what is getsetai"))
+      return "GetSetAI is a vibrant tech community focused on AI, ML, and building live impactful projects.";
 
-  if (userMsg.includes("getsetai") || userMsg.includes("what is getsetai"))
-    return "GetSetAI is a vibrant tech community focused on AI, ML, and building live impactful projects.";
+    if (userMsg.includes("founder") || userMsg.includes("ceo"))
+      return "Our CEO is Jagannath Ji.";
 
-  if (userMsg.includes("founder") || userMsg.includes("ceo"))
-    return "The founder of GetSetAI is Abhishek Sahoo, and our CEO is Jagannath Ji.";
+    if (userMsg.includes("project") || userMsg.includes("projects"))
+      return "We offer live AI/ML projects, guided mentoring, and hands-on experience through our platform.";
 
-  if (userMsg.includes("project") || userMsg.includes("projects"))
-    return "We offer live AI/ML projects, guided mentoring, and hands-on experience through our platform.";
+    if (userMsg.includes("ml") || userMsg.includes("machine learning"))
+      return "We run bootcamps and live sessions to teach ML with real-world problems.";
 
-  if (userMsg.includes("ml") || userMsg.includes("machine learning"))
-    return "We run bootcamps and live sessions to teach ML with real-world problems.";
+    if (userMsg.includes("live") || userMsg.includes("live session"))
+      return "We host regular live sessions on Discord and YouTube. Stay connected for schedules.";
 
-  if (userMsg.includes("live") || userMsg.includes("live session"))
-    return "We host regular live sessions on Discord and YouTube. Stay connected for schedules.";
+    if (userMsg.includes("course") || userMsg.includes("bootcamp"))
+      return "Our upcoming ML bootcamp is focused on practical learning. Launching soon 🚀.";
 
-  if (userMsg.includes("course") || userMsg.includes("bootcamp"))
-    return "Our upcoming ML bootcamp is focused on practical learning. Launching soon 🚀.";
+    if (userMsg.includes("ideathon") || userMsg.includes("hackathon"))
+      return "We frequently organize ideathons & hackathons. Great chance to build & collaborate with others.";
 
-  if (userMsg.includes("ideathon") || userMsg.includes("hackathon"))
-    return "We frequently organize ideathons & hackathons. Great chance to build & collaborate with others.";
+    if (userMsg.includes("community") || userMsg.includes("members"))
+      return "Our community is active on Discord, Telegram, GitHub, and LinkedIn.";
 
-  if (userMsg.includes("community") || userMsg.includes("members"))
-    return "Our community is active on Discord, Telegram, GitHub, and LinkedIn.";
+    if (userMsg.includes("contact") || userMsg.includes("email") || userMsg.includes("reach"))
+      return "You can reach us at: contact@getsetai.in or join our Discord for quick help.";
 
-  if (userMsg.includes("contact") || userMsg.includes("email") || userMsg.includes("reach"))
-    return "You can reach us at: contact@getsetai.in or join our Discord for quick help.";
+    if (userMsg.includes("social") || userMsg.includes("links") || userMsg.includes("join"))
+      return "Join our Discord & Telegram from the footer links or reach out via contact@getsetai.in.";
 
-  if (userMsg.includes("social") || userMsg.includes("links") || userMsg.includes("join"))
-    return "Join our Discord & Telegram from the footer links or reach out via contact@getsetai.in.";
+    if (userMsg.includes("bye") || userMsg.includes("thank"))
+      return "You're welcome! Have a great day 🚀. Come back anytime to chat!";
 
-  if (userMsg.includes("bye") || userMsg.includes("thank"))
-    return "You're welcome! Have a great day 🚀. Come back anytime to chat!";
+      if (userMsg.includes("social") || userMsg.includes("links") || userMsg.includes("join"))
+  return "Join our Discord & Telegram from the footer links or reach out via contact@getsetai.in.";
 
-  return "I'm still learning! You can ask community mentors on Discord for deeper queries. 😊";
-}
+if (userMsg.includes("bye") || userMsg.includes("thank"))
+  return "You're welcome! Have a great day 🚀. Come back anytime to chat!";
 
-  </script>
+// EMPLOYEE PAGE
+if (userMsg.includes("employee") || userMsg.includes("team") || userMsg.includes("members"))
+  return "Meet our amazing team on the Employee Page: <a href='/employees'>/employees</a>";
+
+// ABOUT COMPANY
+if (
+  userMsg.includes("about") ||
+  userMsg.includes("get set ai") ||
+  userMsg.includes("what is getsetai")
+)
+  return `🚀 GetSetAI is an innovative data science and AI-driven community & platform helping students and professionals learn, build, and launch cutting-edge solutions. We host events, provide training, and empower young minds with real-world tech exposure.`;
+
+// PAST EVENTS
+if (userMsg.includes("past events") || userMsg.includes("previous") || userMsg.includes("earlier events"))
+  return "Explore our past events here: <a href='/past-events'>/past-events</a>. We've hosted ideathons, tech workshops, AI challenges, and much more!";
+
+// UPCOMING EVENTS
+if (userMsg.includes("upcoming") || userMsg.includes("next event"))
+  return "Stay tuned! Upcoming events will be announced soon. Visit our homepage or follow us on social media for updates.";
+
+// CONTACT
+if (userMsg.includes("contact") || userMsg.includes("reach"))
+  return "You can reach us at 📧 <strong>contact@getsetai.in</strong> or through the contact form on our homepage.";
+
+// HELP
+if (userMsg.includes("help") || userMsg.includes("support") || userMsg.includes("assist"))
+  return "Sure! I'm here to help. You can ask about events, team, GetSetAI, or how to join. Or email us at contact@getsetai.in.";
+
+// LOCATION
+if (userMsg.includes("location") || userMsg.includes("where are you"))
+  return "We're a pan-India digital community, but our core team operates from various tech hubs including Bengaluru, Delhi & Bhubaneswar.";
+
+// EVENT REGISTRATION
+if (userMsg.includes("register") || userMsg.includes("participate"))
+  return "To register for events, head to our homepage or visit: <a href='/register'>/register</a>.";
+
+// CTO / FOUNDER MENTION
+if (userMsg.includes("cto") || userMsg.includes("founder") || userMsg.includes("abhishek"))
+  return "Abhishek Sahoo is the Founder & CTO of GetSetAI Innovations — the brain behind community-led data science initiatives. 🚀";
+
+
+
+
+    return "I'm still learning! You can ask community mentors on Discord for deeper queries. 😊";
+  }
+
+  // Handle Enter key to send message
+  document.getElementById("user-input").addEventListener("keypress", function (e) {
+    if (e.key === "Enter") sendMessage();
+  });
+</script>
+
 </body>
 </html>
