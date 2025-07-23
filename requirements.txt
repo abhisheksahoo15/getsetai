@@ -12,5 +12,3 @@ numpy
 sqlalchemy
 pymysql
 pyodbc
-transformers
-torch
