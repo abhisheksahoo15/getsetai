@@ -3,9 +3,6 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.exceptions import HTTPException as StarletteHTTPException
-from fastapi.exception_handlers import http_exception_handler
-from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
-import torch
 
 app = FastAPI()
 
