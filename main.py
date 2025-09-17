@@ -64,16 +64,17 @@ async def show_shivam_institute(request: Request):
 # ------------------ Employees ------------------
 
 employees = [
-    {"name": "Shri Jagannath", "image": "/static/images/employee/jagga.jpg", "designation": "Chief Executive Officer", "branch": "GetSetAI, India", "community_id": "1GSAI001"},
-    {"name": "Shri Sawariya Seth", "image": "/static/images/employee/sawariya.jpg", "designation": "Managing Director", "branch": "GetSetAI, India", "community_id": "1GSAI002"},
+    # {"name": "Shri Jagannath", "image": "/static/images/employee/jagga.jpg", "designation": "Chief Executive Officer", "branch": "GetSetAI, India", "community_id": "1GSAI001"},
+    # {"name": "Shri Sawariya Seth", "image": "/static/images/employee/sawariya.jpg", "designation": "Managing Director", "branch": "GetSetAI, India", "community_id": "1GSAI002"},
     {"name": "Abhishek Sahoo", "image": "/static/images/employee/abhishek.jpg", "designation": "Chief Technical Officer", "branch": "GetSetAI, Bangalore", "community_id": "1GSAI003"},
-    {"name": "Nageshwar Yadav", "image": "/static/images/employee/Nageshwar.png", "designation": "Head Of Finance", "branch": "GetSetAI, Bhilai", "community_id": "1GSAI004"},
+    # {"name": "Nageshwar Yadav", "image": "/static/images/employee/Nageshwar.png", "designation": "Head Of Finance", "branch": "GetSetAI, Bhilai", "community_id": "1GSAI004"},
     {"name": "Harsh Vaishnav", "image": "/static/images/employee/harsh.jpg", "designation": "Chief Operating Officer", "branch": "GetSetAI, Bhilai", "community_id": "1GSAI005"},
     {"name": "Harnish Chhabra", "image": "/static/images/employee/harnish.jpg", "designation": "Social Media & Content Head", "branch": "GetSetAI, Bhilai", "community_id": "1GSAI006"},
     {"name": "Sanidhya Mishra", "image": "/static/images/employee/sanidhya.jpg", "designation": "Administrative Head", "branch": "GetSetAI, Bhilai", "community_id": "1GSAI007"},
-    {"name": "Abhineet Singh", "image": "/static/images/employee/Abhineet.png", "designation": "Strategy and Operations Head", "branch": "GetSetAI, Bhilai", "community_id": "1GSAI008"},
-    {"name": "Shivesh Singh Rajput", "image": "/static/images/employee/shivesh.png", "designation": "Principal Consultant", "branch": "GetSetAI, Bhilai", "community_id": "1GSAI009"},
-    {"name": "Piyush Rane", "image": "/static/images/employee/piyush.png", "designation": "Visual Content Manager", "branch": "GetSetAI, Bhilai", "community_id": "1GSAI012"}
+    # {"name": "Abhineet Singh", "image": "/static/images/employee/Abhineet.png", "designation": "Strategy and Operations Head", "branch": "GetSetAI, Bhilai", "community_id": "1GSAI008"},
+    # {"name": "Shivesh Singh Rajput", "image": "/static/images/employee/shivesh.png", "designation": "Principal Consultant", "branch": "GetSetAI, Bhilai", "community_id": "1GSAI009"},
+    # {"name": "Piyush Rane", "image": "/static/images/employee/piyush.png", "designation": "Visual Content Manager", "branch": "GetSetAI, Bhilai", "community_id": "1GSAI012"},
+    {"name": "B. Bharadwaj", "image": "/static/images/employee/bharadwaj.jpg", "designation": "Desigining Head ", "branch": "GetSetAI, Bhilai", "community_id": "1GSAI007"},
 ]
 
 @app.get("/employees", response_class=HTMLResponse)
@@ -98,3 +99,10 @@ async def employee_detail(request: Request, emp_id: str):
 # ------------------ Custom 404 Handler ------------------
 
 
+# ------------------ Custom 404 Handler ------------------
+
+@app.exception_handler(StarletteHTTPException)
+async def custom_404_handler(request: Request, exc: StarletteHTTPException):
+    if exc.status_code == 404:
+        return templates.TemplateResponse("404.html", {"request": request, "title": "Page Not Found"}, status_code=404)
+    return JSONResponse({"detail": exc.detail}, status_code=exc.status_code)

@@ -1,230 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0TTF4E37GF"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-0TTF4E37GF');
-</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{ title }}</title>
-
   <link rel="icon" type="image/png" href="{{ url_for('static', path='logo.png') }}">
-
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root {
-      --primary-dark-blue: #1A1762;
-      --gradient-start: #00D2B4;
-      --gradient-end: #0096FF;
-      --white: #FFFFFF;
-      --light-gray: #F5F5F5;
-      --black: #000000;
-      --navy-hover: #2E2C6C;
-      --orange: #ff4500;
+      --primary: #0096FF;
+      --secondary: #00D2B4;
+      --dark: #0f172a;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Logo Glow Animation */
+    @keyframes logoGlow {
+      0% { filter: drop-shadow(0 0 5px var(--primary)); }
+      50% { filter: drop-shadow(0 0 15px var(--secondary)); }
+      100% { filter: drop-shadow(0 0 5px #ff00cc); }
     }
 
-    body {
-      background-color: var(--white);
-      color: var(--primary-dark-blue);
-      line-height: 1.6;
-      padding-top: 80px;
+    /* Fade In Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background-color: var(--white);
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-    }
-
-    .logo img {
-      height: 50px;
-      width: auto;
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    nav a {
-      color: var(--black);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover {
-      color: var(--gradient-start);
-    }
-
-    .menu-toggle {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-    }
-
-    .menu-toggle span {
-      width: 25px;
-      height: 3px;
-      background-color: var(--black);
-      margin: 4px 0;
-    }
-
-    @media (max-width: 768px) {
-      nav {
-        position: absolute;
-        top: 70px;
-        right: 0;
-        background-color: var(--white);
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 1rem 2rem;
-        width: 100%;
-        display: none;
-      }
-
-      nav.active {
-        display: flex;
-      }
-
-      .menu-toggle {
-        display: flex;
-      }
-    }
-
-    h1 {
-      text-align: center;
-      margin-top: 2rem;
-      margin-bottom: 2rem;
-      font-size: 2.5rem;
-      background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .card-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      padding: 2rem;
-    }
-
-    .employee-card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      width: 280px;
-      padding: 1.5rem;
-      transition: transform 0.3s;
-      text-align: center;
-    }
-
-    .employee-card:hover {
-      transform: translateY(-8px);
-    }
-
-    .employee-card img {
-      width: 130px;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 50%;
-      margin-bottom: 1rem;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .employee-card h2 {
-      font-size: 1.3rem;
-      margin-bottom: 0.5rem;
-      color: #0096FF;
-    }
-
-    .employee-card p {
-      margin: 0.3rem 0;
-      font-size: 0.95rem;
-    }
-
-    .label {
-      font-weight: bold;
-      color: #333;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      background-color: var(--primary-dark-blue);
-      color: var(--white);
-      margin-top: 3rem;
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 0.8s ease forwards;
     }
   </style>
 </head>
 
-<body>
-  <header>
+<body class="bg-slate-50 text-slate-900 font-[Segoe_UI] pt-20">
+
+  <!-- ✅ Navbar -->
+  <header class="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-teal-400 to-sky-500 shadow-lg flex justify-between items-center px-6 py-4 transition-all">
     <div class="logo">
-      <h2><span class="gradient-text" style="letter-spacing: 3px;">GetSetAI Innovations</span></h2>
+      <h2 class="text-2xl font-bold tracking-wide bg-gradient-to-r from-pink-500 via-sky-400 to-teal-300 bg-clip-text text-transparent animate-[logoGlow_4s_linear_infinite]">
+        GetSetAI Innovations
+      </h2>
     </div>
-    <div class="menu-toggle" onclick="toggleMenu()">
-      <span></span><span></span><span></span>
+    <div class="menu-toggle md:hidden flex flex-col cursor-pointer" onclick="toggleMenu()">
+      <span class="w-6 h-[3px] bg-white my-[3px] rounded"></span>
+      <span class="w-6 h-[3px] bg-white my-[3px] rounded"></span>
+      <span class="w-6 h-[3px] bg-white my-[3px] rounded"></span>
     </div>
-    <nav id="navbar">
-      <a href="/">Home</a>
-      <a href="/about/">About</a>
-      <a href="/gallery/">Past Events</a>
-      <a href="/employees/">Our Team</a>
-      <a href="/contact/">Contact</a>
+    <nav id="navbar" class="hidden md:flex gap-6 font-medium text-white">
+      <a href="/" class="hover:underline">Home</a>
+      <a href="/about/" class="hover:underline">About</a>
+      <a href="/gallery/" class="hover:underline">Past Events</a>
+      <a href="/employees/" class="hover:underline">Our Team</a>
+      <a href="/contact/" class="hover:underline">Contact</a>
     </nav>
   </header>
 
-  <h1>{{ title }}</h1>
+  <!-- ✅ Title -->
+  <h1 class="fade-in text-4xl font-bold text-center my-10 bg-gradient-to-r from-teal-400 to-sky-500 bg-clip-text text-transparent">
+    {{ title }}
+  </h1>
 
-<div class="card-container">
-  {% for emp in employees %}
-    <a href="/employee/{{ emp.community_id }}" style="text-decoration: none; color: inherit;">
-      <div class="employee-card">
-        {% if emp.image %}
-          <img src="{{ emp.image }}" alt="{{ emp.name }}">
-        {% else %}
-          <img src="/static/images/employee/default.jpg" alt="No Image">
-        {% endif %}
-        <h2>{{ emp.name }}</h2>
-        <p><span class="label">Designation:</span> {{ emp.designation }}</p>
-        <p><span class="label">Branch:</span> {{ emp.branch }}</p>
-        <p><span class="label">Company ID:</span> {{ emp.community_id or 'N/A' }}</p>
-      </div>
-    </a>
-  {% endfor %}
-</div>
+  <!-- ✅ Employee Cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-6 max-w-6xl mx-auto">
+    {% for emp in employees %}
+      <a href="/employee/{{ emp.community_id }}" class="no-underline text-inherit">
+        <div class="fade-in bg-white/50 backdrop-blur-md rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-transform p-6 text-center border border-white/30">
+          <img src="{{ emp.image if emp.image else '/static/images/employee/default.jpg' }}" alt="{{ emp.name }}" class="w-28 h-28 mx-auto rounded-full object-cover border-2 border-sky-400 shadow-md hover:scale-110 transition-transform" />
+          <h2 class="text-xl font-semibold text-sky-600 mt-4">{{ emp.name }}</h2>
+          <p class="text-gray-700"><span class="font-bold">Designation:</span> {{ emp.designation }}</p>
+          <p class="text-gray-700"><span class="font-bold">Branch:</span> {{ emp.branch }}</p>
+          <p class="text-gray-500 text-sm"><span class="font-bold">Company ID:</span> {{ emp.community_id or 'N/A' }}</p>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
 
-  <footer>
-    © 2025 GetSetAI Community | Built for innovators.
+  <!-- ✅ Footer -->
+  <footer class="text-center mt-12 bg-gradient-to-r from-teal-400 to-sky-500 text-white py-4">
+    © 2025 GetSetAI Community | Built for Innovators
   </footer>
 
+  <!-- ✅ Script -->
   <script>
     function toggleMenu() {
-      const nav = document.getElementById('navbar');
-      nav.classList.toggle('active');
+      document.getElementById('navbar').classList.toggle('hidden');
+      document.getElementById('navbar').classList.toggle('flex');
+      document.getElementById('navbar').classList.toggle('flex-col');
+      document.getElementById('navbar').classList.toggle('bg-slate-900');
+      document.getElementById('navbar').classList.toggle('absolute');
+      document.getElementById('navbar').classList.toggle('right-0');
+      document.getElementById('navbar').classList.toggle('top-16');
+      document.getElementById('navbar').classList.toggle('p-4');
     }
+
+    // Scroll fade-in animation
+    const elements = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = "running";
+        }
+      });
+    }, { threshold: 0.2 });
+
+    elements.forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
