@@ -3,12 +3,18 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.exceptions import HTTPException as StarletteHTTPException
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
+
+import os
 
 app = FastAPI()
 
 # Mount static files and templates
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
+
+
 
 
 # ------------------ Routes ------------------
@@ -106,3 +112,53 @@ async def custom_404_handler(request: Request, exc: StarletteHTTPException):
     if exc.status_code == 404:
         return templates.TemplateResponse("404.html", {"request": request, "title": "Page Not Found"}, status_code=404)
     return JSONResponse({"detail": exc.detail}, status_code=exc.status_code)
+
+
+
+SERVICE_ACCOUNT_FILE = "service_account.json"
+SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
+SPREADSHEET_ID = "14DBCsBam8PmM6YLBXRrz7UOuJEkGxH46LdT4G9nMSCU"  # <-- Replace with your Google Sheet ID
+
+credentials = service_account.Credentials.from_service_account_file(
+    SERVICE_ACCOUNT_FILE, scopes=SCOPES
+)
+service = build("sheets", "v4", credentials=credentials)
+sheet = service.spreadsheets()
+
+# ---------------- Routes ----------------
+
+@app.get("/", response_class=HTMLResponse)
+async def home(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request, "title": "GetSetAI"})
+
+
+@app.get("/sheet-data")
+async def get_sheet_data():
+    """
+    Reads all rows from Google Sheet (first sheet by default).
+    """
+    result = sheet.values().get(spreadsheetId=SPREADSHEET_ID, range="Sheet1").execute()
+    values = result.get("values", [])
+    return {"data": values}
+
+
+@app.post("/sheet-add")
+async def add_sheet_data(
+    name: str = Form(...),
+    email: str = Form(...),
+    message: str = Form(...)
+):
+    """
+    Append a row to Google Sheet.
+    """
+    values = [[name, email, message]]
+    body = {"values": values}
+
+    result = sheet.values().append(
+        spreadsheetId=SPREADSHEET_ID,
+        range="Sheet1",
+        valueInputOption="RAW",
+        body=body
+    ).execute()
+
+    return {"status": "success", "updated": result.get("updates")}
