@@ -115,7 +115,7 @@ async def custom_404_handler(request: Request, exc: StarletteHTTPException):
 
 
 
-SERVICE_ACCOUNT_FILE = "service_account.json"
+SERVICE_ACCOUNT_FILE = os.path.join(".gitignore", "credentials", "service_account.json")
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 SPREADSHEET_ID = "14DBCsBam8PmM6YLBXRrz7UOuJEkGxH46LdT4G9nMSCU"  # <-- Replace with your Google Sheet ID
 
