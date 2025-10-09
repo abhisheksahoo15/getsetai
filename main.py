@@ -62,6 +62,10 @@ async def show_about(request: Request):
 async def show_contact(request: Request):
     return templates.TemplateResponse("contact.html", {"request": request, "title": "Contact"})
 
+@app.get("/course", response_class=HTMLResponse)
+async def show_contact(request: Request):
+    return templates.TemplateResponse("course.html", {"request": request, "title": "Contact"})
+
 @app.get("/shivam-institute", response_class=HTMLResponse)
 async def show_shivam_institute(request: Request):
     return templates.TemplateResponse("pastevents/shivaminst.html", {"request": request, "title": "Past Events"})
