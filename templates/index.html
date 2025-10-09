@@ -597,6 +597,27 @@
 
   // Initial render
   render(CATALOG);
+  </script>
+
+  <!-- Add this script just before </body> -->
+<script>
+  // --- Existing Model Catalog Script ---
+  // ...existing code...
+
+  // --- Mobile Drawer Menu Toggle ---
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileDrawer = document.getElementById('mobileDrawer');
+
+  menuBtn.addEventListener('click', function () {
+    mobileDrawer.classList.toggle('hidden');
+  });
+
+  // Optional: Close drawer when a link is clicked (for better UX)
+  mobileDrawer.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileDrawer.classList.add('hidden');
+    });
+  });
 </script>
 
 </body>
