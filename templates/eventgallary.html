@@ -1,234 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Past Events | GetSetAI</title>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0TTF4E37GF"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Event Gallery | GetSetAI Innovations</title>
+    <meta name="description" content="Explore past events, workshops, and webinars hosted by Getsetai Innovations. Collaborate with us to host your next tech event." />
 
-  gtag('config', 'G-0TTF4E37GF');
-</script>
-  <style>
-    :root {
-      --primary: #1A1762;
-      --gradient-start: #00D2B4;
-      --gradient-end: #0096FF;
-      --white: #FFFFFF;
-      --light-gray: #F7F9FB;
-      --card-shadow: rgba(0, 0, 0, 0.1);
-    }
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Enable dark mode based on 'dark' class on <html>
+            theme: {
+                extend: {
+                    fontFamily: { 
+                        sans: ['Inter','ui-sans-serif','system-ui','sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif']
+                    },
+                    colors: {
+                        brand: {
+                            50:'#f3f7ff', 100:'#e7ecff', 200:'#cad4ff', 300:'#a6b6ff', 400:'#8095ff',
+                            500:'#5c74ff', 600:'#4b5ee6', 700:'#3d4bc0', 800:'#313c96', 900:'#232a66'
+                        },
+                        ink: {
+                            900:'#0b1020', 800:'#101632', 700:'#151b3f'
+                        },
+                        cyan: '#06b6d4',
+                        green: '#34d399',
+                    },
+                    boxShadow: {
+                        glow: '0 0 40px rgba(92,116,255,.3), 0 0 60px rgba(14,165,233,.2)',
+                    },
+                    keyframes: {
+                         pulseNeon: {
+                            '0%, 100%': { opacity: 1, filter: 'drop-shadow(0 0 1px #5c74ff)' },
+                            '50%': { opacity: 0.8, filter: 'drop-shadow(0 0 10px #06b6d4)' },
+                        }
+                    },
+                    animation: {
+                        pulseNeon: 'pulseNeon 4s ease-in-out infinite',
+                    }
+                }
+            }
+        }
+    </script>
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
-    }
+    <style>
+        /* Light Mode Default Styling */
+        body {
+            background-color: #f0f3f8;
+            color: #1e293b; 
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .event-card {
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease-in-out;
+        }
+        .event-card:hover {
+            box-shadow: 0 10px 20px -5px rgba(92,116,255,.15);
+            transform: translateY(-4px);
+            border-color: #5c74ff;
+        }
+        .gtext { 
+            background: linear-gradient(90deg, #5c74ff, #06b6d4, #34d399); 
+            -webkit-background-clip: text; 
+            background-clip: text; 
+            color: transparent; 
+        }
 
-    body {
-      background-color: var(--white);
-      color: var(--primary);
-      padding-top: 80px;
-    }
+        /* Dark Mode Overrides */
+        .dark body {
+             background:
+                radial-gradient(1200px 600px at 10% -10%, rgba(92,116,255, 0.2), transparent 60%),
+                radial-gradient(1200px 600px at 90% -10%, rgba(6,182,212, 0.2), transparent 60%),
+                #0b1020;
+            color: #f8fafc;
+        }
+        .dark .event-card { 
+            background: rgba(16, 22, 50, 0.5); /* ink-800 semi-transparent */
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,.1);
+        }
+        .dark .event-card:hover {
+            box-shadow: 0 10px 20px -5px rgba(92,116,255,.4);
+            border-color: #06b6d4;
+        }
+        
+        .nav-bg {
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .dark .nav-bg {
+             background-color: rgba(11, 16, 32, 0.95);
+        }
+    </style>
 
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      padding: 1rem 2rem;
-      background-color: var(--white);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      z-index: 999;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    <script>
+        // Theme Logic
+        const html = document.documentElement;
 
-    .logo h2 {
-      font-weight: bold;
-      background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
-      -webkit-background-clip: text;
-      color: transparent;
-    }
+        function setInitialTheme() {
+            // Default to light mode if nothing is set
+            const storedTheme = localStorage.getItem('theme');
+            if (storedTheme === 'dark') {
+                html.classList.add('dark');
+            } else {
+                html.classList.remove('dark');
+            }
+        }
+        
+        function toggleTheme() {
+            html.classList.toggle('dark');
+            if (html.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        }
 
-    nav {
-      display: flex;
-      gap: 1.5rem;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: var(--primary);
-      font-weight: 500;
-    }
-
-    .gallery-section {
-      padding: 3rem 2rem;
-      text-align: center;
-    }
-
-    .gallery-section h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-
-    .event-card {
-      background-color: var(--light-gray);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 16px var(--card-shadow);
-      transition: transform 0.3s ease;
-    }
-
-    .event-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .event-image {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
-
-    .event-content {
-      padding: 1rem;
-      text-align: left;
-    }
-
-    .event-title {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-    }
-
-    .event-meta {
-      font-size: 0.9rem;
-      color: #666;
-      margin-bottom: 0.8rem;
-    }
-
-    .event-bio {
-      font-size: 0.95rem;
-      color: #444;
-    }
-
-    .event-card a {
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-
-    .event-card a:focus,
-    .event-card a:active {
-      outline: none;
-      box-shadow: none;
-    }
-
-    .event-card a:hover {
-      text-decoration: none;
-      opacity: 0.95;
-    }
-
-    footer {
-      margin-top: 4rem;
-      padding: 2rem;
-      text-align: center;
-      background-color: var(--primary);
-      color: var(--white);
-    }
-  </style>
+        setInitialTheme();
+    </script>
 </head>
-<body>
+<body class="font-sans antialiased min-h-screen">
 
-  <header>
-    <div class="logo">
-      <h2>GetSetAI</h2>
+    <!-- Top Notice (MSME/GoI) -->
+    <div class="w-full text-center text-[13px] md:text-sm py-2 px-4 bg-white/50 dark:bg-white/10 backdrop-blur border-b border-black/10 dark:border-white/10 text-slate-700 dark:text-white/90">
+        <span class="tracking-widest font-semibold">G e t S e t A I</span>
+        <span class="opacity-90"> is officially registered under the Ministry of Micro, Small & Medium Enterprises (MSME),</span>
+        <span class="font-semibold"> Government of India.</span>
     </div>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/about">About</a>
-      <a href="/events">Events</a>
-      <a href="/contact">Contact</a>
-    </nav>
-  </header>
 
-  <section class="gallery-section">
-    <h1>Our Past Events</h1>
-    <p>Explore the milestones and memories we've created with our amazing community.</p>
+    <!-- Nav -->
+    <header class="sticky top-0 z-50 border-b border-black/10 dark:border-white/10 nav-bg backdrop-blur-sm">
+        <div class="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 group">
+                                    <div class="relative w-10 h-10 mr-3 rounded-lg overflow-hidden shadow-lg shadow-blue-500/40 group">
+                        <img src="/static/logo.png" alt="Getsetai Logo" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-blue-500/20 group-hover:bg-transparent transition-colors"></div>
+                    </div>
+                <span class="font-display font-bold text-xl tracking-tight text-slate-900 dark:text-white">GetSetAI Innovations</span>
+            </a>
 
-    <div class="card-grid">
+            <nav class="flex items-center gap-6 text-sm text-slate-800 dark:text-slate-200">
+                 <a href="/" class="hover:text-brand-500 opacity-80 transition">Home</a>
+                 <a href="/about" class="hover:text-brand-500 opacity-80 transition">About Us</a>
+                 <a href="/course" class="hover:text-brand-500 opacity-80 transition">Courses</a>
+                 <a href="#" class="font-bold text-brand-500">Events</a>
+                 
+                 <!-- Theme Toggle Button -->
+                <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                    <i class="fa-solid fa-moon dark:hidden text-gray-600"></i>
+                    <i class="fa-solid fa-sun hidden dark:block text-yellow-400"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
 
-      <!-- Card 1 -->
-      <div class="event-card">
-        <a href="/ssmv">
-          <img src="/static/images/banner.png" class="event-image" alt="Event 1" />
-          <div class="event-content">
-            <div class="event-title">1 Day Certification Workshop</div>
-            <div class="event-meta">📅 23 MAY, 2025 | 📍 BHILAI NAGAR, India</div>
-            <div class="event-bio">! Day Certification Workshop that shake hands with real-world Tools</div>
-          </div>
-        </a>
-      </div>
+    <!-- Hero Section -->
+    <section class="text-center py-16 md:py-24 px-4 bg-white dark:bg-ink-900/50">
+        <h2 class="font-display text-4xl md:text-6xl font-bold mb-4 gtext dark:animate-pulseNeon">
+            Our Event Gallery & Milestones 🏆
+        </h2>
+        <p class="text-slate-600 dark:text-slate-300 max-w-3xl mx-auto text-lg md:text-xl">
+            Explore the milestones and memories we've created with our amazing community, driving AI innovation across India.
+        </p>
+    </section>
 
-      <!-- Card 2 -->
-      <div class="event-card">
-        <a href="/shivam-institute">
-          <img src="/static/images/shivam_institute/housing_board_Banner.png" class="event-image" alt="Event 2" />
-          <div class="event-content">
-            <div class="event-title">GetSetCode Seminar</div>
-            <div class="event-meta">31 may 2025 , Bhiali Nagar - Chhattisgarh</div>
-            <div class="event-bio">A immersive coding experience focused on Python, ML, and GitHub collaboration. carrear path after Class 12 And how one should adopt AI in his Daily life</div>
-          </div>
-        </a>
-      </div>
+    <!-- Past Events Section -->
+    <section class="px-4 py-16 mx-auto max-w-7xl">
+        <h3 class="text-3xl font-bold text-slate-800 dark:text-white mb-10 text-center">Past Community Driven Events</h3>
 
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Event Card 1: 1 Day Certification Workshop -->
+            <div class="event-card rounded-2xl p-6 flex flex-col shadow-lg bg-white dark:bg-ink-800">
+                <div class="text-lg font-display font-bold text-brand-600 dark:text-brand-400 mb-3">
+                    1 Day Certification Workshop
+                </div>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 flex-grow">
+                    A certification workshop focused on giving attendees a practical, 1-day experience to shake hands with real-world AI tools.
+                </p>
+                <div class="text-sm text-slate-600 dark:text-slate-300 mb-2">
+                    <i class="fas fa-calendar-alt mr-2 text-cyan"></i> **23 MAY, 2025**
+                </div>
+                <div class="text-sm text-slate-600 dark:text-slate-300 mb-4">
+                    <i class="fas fa-map-marker-alt mr-2 text-cyan"></i> BHILAI NAGAR, India
+                </div>
+                <button class="w-full py-2 bg-gray-200 dark:bg-white/10 text-slate-700 dark:text-white rounded-xl hover:bg-gray-300 dark:hover:bg-white/20 transition-colors text-sm">
+                    View Photo Gallery
+                </button>
+            </div>
 
-            <!-- Card 2 -->
-      <div class="event-card">
-        <a href="/innovate">
-          <img src="/static/images/InnovateX/innovetex01.png" class="event-image" alt="Event 2" />
-          <div class="event-content">
-            <div class="event-title">InnovateX Webinar</div>
-            <div class="event-meta"> 07 June 2025, Bengaluru</div>
-            <div class="event-bio">A immersive coding experience focused on How to start Tech Journey , Trending Technologies collaboration. carrear path after Class 12 And how one should adopt AI in his Daily life</div>
-          </div>
-        </a>
-      </div>
+            <!-- Event Card 2: GetSetCode Seminar -->
+            <div class="event-card rounded-2xl p-6 flex flex-col shadow-lg bg-white dark:bg-ink-800">
+                <div class="text-lg font-display font-bold text-brand-600 dark:text-brand-400 mb-3">
+                    GetSetCode Seminar
+                </div>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 flex-grow">
+                    An immersive coding experience focused on **Python, ML, and GitHub collaboration**. Career path guidance for post-Class 12 students and AI adoption in daily life.
+                </p>
+                <div class="text-sm text-slate-600 dark:text-slate-300 mb-2">
+                    <i class="fas fa-calendar-alt mr-2 text-cyan"></i> **31 MAY, 2025**
+                </div>
+                <div class="text-sm text-slate-600 dark:text-slate-300 mb-4">
+                    <i class="fas fa-map-marker-alt mr-2 text-cyan"></i> Bhiali Nagar - Chhattisgarh
+                </div>
+                 <button class="w-full py-2 bg-gray-200 dark:bg-white/10 text-slate-700 dark:text-white rounded-xl hover:bg-gray-300 dark:hover:bg-white/20 transition-colors text-sm">
+                    View Session Recordings
+                </button>
+            </div>
 
-      <!-- Card 3
-      <div class="event-card">
-        <a href="/contact">
-          <img src="https://source.unsplash.com/600x400/?startup,conference" class="event-image" alt="Event 3" />
-          <div class="event-content">
-            <div class="event-title">Startup Talk Series</div>
-            <div class="event-meta">📅 Feb 18, 2024 | 📍 Raipur, Chhattisgarh</div>
-            <div class="event-bio">A speaker event featuring 6 startup founders sharing their journey, funding tips, and product strategies.</div>
-          </div>
-        </a>
-      </div> -->
+            <!-- Event Card 3: InnovateX Webinar -->
+            <div class="event-card rounded-2xl p-6 flex flex-col shadow-lg bg-white dark:bg-ink-800">
+                <div class="text-lg font-display font-bold text-brand-600 dark:text-brand-400 mb-3">
+                    InnovateX Webinar
+                </div>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 flex-grow">
+                    A webinar on how to start your **Tech Journey**, exploring trending technologies and career collaborations after Class 12, focusing on the future of AI.
+                </p>
+                 <div class="text-sm text-slate-600 dark:text-slate-300 mb-2">
+                    <i class="fas fa-calendar-alt mr-2 text-cyan"></i> **07 June, 2025**
+                </div>
+                <div class="text-sm text-slate-600 dark:text-slate-300 mb-4">
+                    <i class="fas fa-map-marker-alt mr-2 text-cyan"></i> Bengaluru (Online)
+                </div>
+                 <button class="w-full py-2 bg-gray-200 dark:bg-white/10 text-slate-700 dark:text-white rounded-xl hover:bg-gray-300 dark:hover:bg-white/20 transition-colors text-sm">
+                    View Attendee Feedback
+                </button>
+            </div>
+        </div>
+    </section>
 
-    </div>
-  </section>
+    <!-- Host a Collaborative Event CTA Section -->
+    <section class="py-20 px-4 bg-brand-500/10 dark:bg-brand-500/20 border-t border-b border-brand-500/30">
+        <div class="max-w-4xl mx-auto text-center">
+            <h3 class="text-3xl font-bold gtext mb-4 font-display">
+                Host an Event <span class="text-slate-800 dark:text-white">With Our Community</span>
+            </h3>
+            <p class="text-slate-700 dark:text-slate-300 text-lg mb-8">
+                Ready to share your knowledge, host a hackathon, or sponsor a tech talk? **Partner with Getsetai Innovations** to reach thousands of passionate AI and ML enthusiasts.
+            </p>
+            
+            <a href="mailto:collaboration@getsetai.in" 
+               class="inline-flex items-center gap-3 px-8 py-4 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-full shadow-lg shadow-brand-500/40 transition-transform hover:scale-105">
+               <i class="fas fa-handshake"></i> Start a Collaboration Inquiry
+            </a>
+        </div>
+    </section>
 
-  <footer>
-    © 2025 GetSetAI Community. Crafted with 🔥 and 💡 by future builders.
-  </footer>
+    <!-- Footer -->
+    <footer class="py-12 border-t border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 transition-colors duration-300">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <div class="flex items-center justify-center gap-3 mb-4">
+                <div class="w-8 h-8 bg-gradient-to-br from-brand-400 to-cyan rounded-xl"></div>
+                <span class="font-bold text-xl text-slate-800 dark:text-white">Getsetai Innovations</span>
+            </div>
+            <p class="max-w-xl mx-auto mb-6">"Innovation is not about having an idea, but executing it with the right tribe."</p>
+
+            <div class="flex justify-center space-x-6">
+                <a href="#" class="hover:text-brand-500 transition"><i class="fa-brands fa-linkedin-in text-xl"></i></a>
+                <a href="#" class="hover:text-cyan transition"><i class="fa-brands fa-twitter text-xl"></i></a>
+                <a href="#" class="hover:text-green transition"><i class="fa-brands fa-github text-xl"></i></a>
+            </div>
+            <p class="text-sm text-slate-600 dark:text-slate-600 mt-8">&copy; 2025 Getsetai Innovations. All rights reserved. | Proudly built in India.</p>
+        </div>
+    </footer>
 
 </body>
 </html>

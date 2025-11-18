@@ -1,624 +1,722 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>GetSetAI — Build, Search & Ship AI Models</title>
-  <meta name="description" content="GetSetAI: India’s vibrant AI community & platform to discover, try, and deploy AI/ML models. MSME-registered under the Government of India." />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getsetai Innovations | AI, ML & Tech Community</title>
+    
+    <!-- Fonts: Inter for UI, Space Grotesk for Headings -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  
-  <!-- Tailwind (CDN) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Inter','ui-sans-serif','system-ui','sans-serif'] },
-          colors: {
-            brand: {
-              50:'#f3f7ff', 100:'#e7ecff', 200:'#cad4ff', 300:'#a6b6ff', 400:'#8095ff',
-              500:'#5c74ff', 600:'#4b5ee6', 700:'#3d4bc0', 800:'#313c96', 900:'#232a66'
-            },
-            ink: {
-              900:'#0b1020', 800:'#101632', 700:'#151b3f'
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Synchronous theme init: default to light unless user explicitly stored 'dark' -->
+    <script>
+        (function() {
+            try {
+                var stored = localStorage.getItem('theme');
+                if (stored === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            } catch (e) {
+                // ignore
             }
-          },
-          boxShadow: {
-            glow: '0 10px 40px -8px rgba(92,116,255,.45), 0 10px 60px -8px rgba(14,165,233,.35)'
-          },
-          keyframes: {
-            floaty: { '0%,100%':{ transform:'translateY(0px)'}, '50%':{ transform:'translateY(-10px)'} },
-            marquee: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
-            shine: { '0%':{ backgroundPosition:'-200% 0'}, '100%':{ backgroundPosition:'200% 0'} },
-            pulseDot: { '0%,100%':{ transform:'scale(1)', opacity:.65}, '50%':{ transform:'scale(1.25)', opacity:1 } }
-          },
-          animation: {
-            floaty: 'floaty 6s ease-in-out infinite',
-            marquee: 'marquee 28s linear infinite',
-            shine: 'shine 2.5s linear infinite',
-            pulseDot: 'pulseDot 2.4s ease-in-out infinite'
-          }
+        })();
+    </script>
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        },
+                        accent: {
+                            light: '#22d3ee', // Cyan
+                            DEFAULT: '#06b6d4',
+                            dark: '#0891b2',
+                        },
+                        darkbg: '#0f172a',
+                        cardbg: '#1e293b'
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
         }
-      }
-    }
-  </script>
+    </script>
 
-  <!-- GSAP + ScrollTrigger -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <style>
+        /* Custom Utilities */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .dark .glass-nav {
+            background: rgba(15, 23, 42, 0.8);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #3b82f6, #06b6d4);
+        }
 
-  <style>
-    :root { --ring: 255 255 255 / 14%; }
-    html, body { height: 100%; }
-    body {
-      background:
-        radial-gradient(1200px 600px at 10% -10%, rgba(255, 0, 0, 0.35), transparent 60%),
-        radial-gradient(1200px 600px at 90% -10%, rgba(1, 237, 250, 0.35), transparent 60%),
-        radial-gradient(1200px 600px at 10% -10%, rgba(98, 0, 255, 0.35), transparent 60%),
-        radial-gradient(1200px 600px at 90% -10%, rgba(255, 234, 0, 0.35), transparent 60%),
-        #0b1020;
-      color: #f8fafc;
-    }
-    .glass { backdrop-filter: blur(14px); background: linear-gradient( to bottom right, rgba(255,255,255,.08), rgba(255,255,255,.04)); border: 1px solid rgba(255,255,255,.12); }
-    .btn-primary { position: relative; overflow: hidden; }
-    .btn-primary::before { content:''; position:absolute; inset:-2px; background:linear-gradient(110deg, rgba(92,116,255,.0) 0%, rgba(92,116,255,.5) 30%, rgba(14,165,233,.5) 70%, rgba(14,165,233,.0) 100%); filter: blur(12px); opacity:.6; }
-    .btn-primary span { position: relative; z-index: 1; }
-    .tilt { transform-style: preserve-3d; will-change: transform; }
-    .tilt:hover .tilt-raise { transform: translateZ(24px); }
-    .gtext { background: linear-gradient(90deg, #a6b6ff, #67e8f9, #34d399); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    html { scroll-behavior: smooth; }
-  </style>
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .dark .card-hover:hover {
+            box-shadow: 0 20px 25px -5px rgba(6, 182, 212, 0.15);
+        }
+        
+        /* Smooth scrolling for anchor links */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
 </head>
-<body class="font-sans antialiased selection:bg-brand-500/30 selection:text-white">
+<body class="font-sans text-gray-800 bg-gray-50 dark:bg-darkbg dark:text-gray-200 transition-colors duration-300">
 
-  <!-- Top Notice (MSME/GoI) -->
-  <div class="w-full text-center text-[13px] md:text-sm py-2 px-4 bg-white/10 backdrop-blur border-b border-white/10">
-    <span class="tracking-widest text-white/90">G e t S e t A I</span>
-    <span class="opacity-90"> is officially registered under the Ministry of Micro, Small & Medium Enterprises (MSME),</span>
-    <span class="font-semibold"> Government of India.</span>
-    <span class="opacity-90"> A vibrant AI community for learners, developers, and innovators.</span>
-  </div>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <!-- Placeholder Logo Image -->
+                    <div class="relative w-10 h-10 mr-3 rounded-lg overflow-hidden shadow-lg shadow-blue-500/40 group">
+                        <img src="/static/logo.png" alt="Getsetai Logo" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-blue-500/20 group-hover:bg-transparent transition-colors"></div>
+                    </div>
+                    <span class="font-display font-bold text-2xl tracking-tight text-gray-900 dark:text-white">
+                        Getsetai<span class="text-blue-500">Innovations</span>
+                    </span>
+                </div>
 
-  <!-- Nav -->
-  <header class="sticky top-0 z-50 border-b border-white/10 bg-white/80 text-ink-900 backdrop-blur supports-[backdrop-filter]:bg-white/80">
-    <div class="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3 group">
-        <!-- Replace with your logo -->
-        <img class="h-10 w-40 rounded-xl object-cover" src="/static/logo.png" alt="GetSetAI Logo">
-        <span class="font-semibold tracking-wide text-slate-900">GetSetAI Innovations</span>
-        <span class="ml-2 text-xs px-2 py-0.5 rounded-full bg-black/5 border border-black/10 text-slate-700">Beta</span>
-      </a>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/" class="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-cyan-400 font-medium transition">Home</a>
+                    
+                    <a href="/course" class="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-cyan-400 font-medium transition">Courses</a>
+                    <a href="/gallery" class="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-cyan-400 font-medium transition">Events</a>
+                    <a href="/about" class="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-cyan-400 font-medium transition">About</a>
 
-      <button id="menuBtn" class="md:hidden inline-flex items-center justify-center p-2 rounded-lg bg-black/10 text-slate-800" aria-label="Open menu">
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
 
-      <nav id="navLinks" class="hidden md:flex items-center gap-8 text-sm text-slate-800">
-        <a href="#models" class="hover:opacity-100 opacity-80">Models</a>
-        <a href="/course" class="hover:opacity-100 opacity-80"><b>Course</b></a>
-        <a href="/about" class="hover:opacity-100 opacity-80">About</a>
-        <a href="/contact" class="hover:opacity-100 opacity-80">Contact</a>
-        <!-- <a href="#pricing" class="hover:opacity-100 opacity-80">Pricing</a> -->
-        <a href="#faq" class="hover:opacity-100 opacity-80">FAQ</a>
-      </nav>
+                    <!-- Theme Toggle -->
+                    <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                        <i class="fa-solid fa-moon dark:hidden text-gray-600"></i>
+                        <i class="fa-solid fa-sun hidden dark:block text-yellow-400"></i>
+                    </button>
 
-      <div class="hidden md:flex items-center gap-3 text-sm">
-        <!-- <a href="#" class="hover:opacity-90 text-slate-800"></a> -->
-        <a href="#cta" class="btn-primary inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-brand-600 to-sky-600 px-4 py-2 shadow-glow text-white">
-          <span>Upcoming</span>
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
-        </a>
-      </div>
-    </div>
+                    <!-- Login/Signup Buttons -->
+                    <button onclick="openModal('login')" class="text-gray-600 dark:text-white hover:text-blue-600 font-medium">Log In</button>
+                    <button onclick="openModal('signup')" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full font-medium transition shadow-lg shadow-blue-500/30">
+                        Join Now
+                    </button>
+                </div>
 
-    <!-- Mobile drawer -->
-    <div id="mobileDrawer" class="md:hidden hidden border-t border-black/10 bg-white/60 backdrop-blur">
-      <div class="max-w-7xl mx-auto px-4 py-3 grid gap-3 text-slate-900">
-        <a class="py-2" href="#models">Models</a>
-        <a class="py-2" href="/course"><b>Course</b></a>
-        <a class="py-2" href="/about">About</a>
-        <a class="py-2" href="/contact">Contact</a>
-        <!-- <a class="py-2" href="#pricing">Pricing</a> -->
-        <a class="py-2" href="#faq">FAQ</a>
-        <a class="py-2" href="#cta">Get Started</a>
-      </div>
-    </div>
-  </header>
-<section class="relative overflow-hidden">
-  <!-- Soft Gradient Background -->
-  <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-brand-500/10 via-sky-500/5 to-transparent blur-3xl -z-10"></div>
-
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 md:pt-20 pb-10">
-    <div class="grid gap-12 lg:grid-cols-2 items-center">
-      <!-- LEFT CONTENT -->
-      <div class="space-y-6">
-        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass border-white/10 text-xs">
-          <span class="inline-flex size-1.5 rounded-full bg-emerald-400 animate-pulseDot"></span>
-          <span class="uppercase tracking-wider">Search & Ship AI Faster</span>
-        </div>
-        <h1 class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
-          Find, try & Explore <span class="gtext">AI/ML models</span> in seconds.
-        </h1>
-        <p class="text-slate-300/90 max-w-xl text-base sm:text-lg">
-          GetSetAI is India’s AI launchpad — discover pre-trained models, community projects, and production-ready templates.
-        </p>
-        <!-- Search Bar -->
-        <div class="glass rounded-2xl p-3 sm:p-4 border border-white/10 space-y-3">
-          <div class="flex flex-col md:flex-row gap-3">
-            <div class="relative flex-1">
-              <input id="modelSearch" type="text" placeholder="Search models (e.g., sentiment, OCR, Llama)..."
-                     class="w-full rounded-xl bg-black/30 border border-white/10 px-4 py-3 pr-10 outline-none placeholder:text-slate-400 text-sm sm:text-base">
-              <svg class="w-5 h-5 absolute right-3 top-1/2 -translate-y-1/2 opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="M21 21l-4.3-4.3"></path>
-              </svg>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleMobileMenu()" class="text-gray-600 dark:text-white focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
             </div>
-            <select id="modelFilter" class="rounded-xl bg-black/30 border border-white/10 px-4 py-3 text-sm sm:text-base">
-              <option value="all">All categories</option>
-              <option value="nlp">NLP</option>
-              <option value="cv">Computer Vision</option>
-              <option value="asr">Speech</option>
-              <option value="tabular">Time-Series</option>
-            </select>
-            <button id="searchBtn" class="btn-primary rounded-xl bg-gradient-to-r from-brand-600 to-sky-600 px-5 py-3 shadow-glow text-sm sm:text-base">
-              Search
-            </button>
-          </div>
         </div>
-        <!-- Popular Tags -->
-        <div class="flex flex-wrap gap-3 text-sm opacity-90">
-          <span>Popular:</span>
-          <button class="px-3 py-1 rounded-full bg-white/10 hover:bg-white/15 text-xs">Spam Shield AI</button>
-          <button class="px-3 py-1 rounded-full bg-white/10 hover:bg-white/15 text-xs">Hire Fire AI</button>
-        </div>
-      </div>
-      <!-- RIGHT CONTENT -->
-      <div class="flex flex-col items-center gap-3">
-        <div class="relative flex justify-center items-center w-full">
-          <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-brand-500/30 via-sky-500/20 to-emerald-400/20 blur-2xl"></div>
-<div class="relative rounded-3xl shadow-glow bg-black/30 p-2"
-     style="z-index:1; max-width: 350px; width: 100%;">
-  <img 
-    src="/static/images/python_banner.jpg" 
-    alt="GetSetAI Banner" 
-    class="rounded-2xl w-full h-auto object-contain"
-  >
 
-  <!-- Download Brochure Button -->
-  <div class="text-center mt-4">
-    <a href="/static/docu/Course Curriculum Python .pdf" target="_blank"
-       class="inline-block px-5 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 
-              text-white font-semibold shadow-md hover:shadow-lg hover:scale-105 
-              transition duration-300 ease-in-out">
-      📄 Download Brochure
-    </a>
-  </div>
-
-
-    <div class="text-center mt-4">
-    <a href="https://forms.gle/k2gVo1hcFffi4xhp8" target="_blank"
-       class="inline-block px-5 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 
-              text-white font-semibold shadow-md hover:shadow-lg hover:scale-105 
-              transition duration-300 ease-in-out">
-      📄 Enroll Now
-    </a>
-  </div>
-</div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-  <!-- Models (search results mount) -->
-  <section id="models" class="py-16 border-b border-white/10 bg-white/5">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="flex items-end justify-between gap-6 flex-wrap">
-        <div>
-          <h2 class="text-3xl sm:text-4xl font-bold">Discover models</h2>
-          <p class="mt-2 text-slate-300/90 max-w-2xl">Real-time results below update as you search. Click a card for docs or a quick demo.</p>
-        </div>
-        <a href="#cta" class="text-sm opacity-80 hover:opacity-100">Submit your model →</a>
-      </div>
-
-      <div id="resultsGrid" class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <!-- dynamic cards -->
-      </div>
-    </div>
-  </section>
-
-  <!-- Features -->
-  <section id="features" class="py-24">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="max-w-2xl">
-        <h2 class="text-3xl sm:text-4xl font-bold">Everything to <span class="gtext">go from idea → production</span></h2>
-        <p class="mt-3 text-slate-300/90">No setup. No YAML fights. Templates, previews, and one-click deploys out of the box.</p>
-      </div>
-
-      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <article class="glass rounded-2xl p-6 tilt group" data-tilt>
-          <div class="tilt-raise">
-            <div class="size-12 rounded-xl bg-gradient-to-br from-brand-500 to-sky-500 grid place-items-center shadow-glow">
-              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 border-t dark:border-gray-700 absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Home</a>
+                <a href="#chapters" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Chapters</a>
+                <a href="#courses" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Courses</a>
+                <a href="#events" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Events</a>
+                <div class="mt-4 flex flex-col gap-2">
+                     <button onclick="toggleTheme()" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        Toggle Dark Mode
+                    </button>
+                    <button onclick="openModal('login')" class="w-full text-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-gray-600 hover:bg-gray-700">Log In</button>
+                    <button onclick="openModal('signup')" class="w-full text-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700">Sign Up</button>
+                </div>
             </div>
-            <h3 class="mt-4 text-xl font-semibold">Instant AI sandbox</h3>
-            <p class="mt-2 text-slate-300/90">Runnable notebooks in milliseconds with ephemeral containers and pre-baked models.</p>
-          </div>
-        </article>
+        </div>
+    </nav>
 
-        <article class="glass rounded-2xl p-6 tilt" data-tilt>
-          <div class="tilt-raise">
-            <div class="size-12 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-500 grid place-items-center">
-              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5l4 4-12 12H4.5v-4.5z"/></svg>
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-32 pb-20 lg:pt-40 overflow-hidden min-h-screen flex items-center">
+        <!-- Tech Background Grid -->
+        <div class="absolute inset-0 -z-10">
+             <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+             <div class="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-blue-500 opacity-20 blur-[100px]"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-12">
+            <!-- Left Content: Text, Description, Date/Time/Link -->
+            <div class="lg:w-1/2 z-10 flex flex-col justify-center">
+                <div class="inline-flex self-start items-center px-3 py-1 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 text-xs font-bold uppercase tracking-wider mb-6 backdrop-blur-sm">
+                    <span class="w-2 h-2 bg-cyan-500 rounded-full mr-2 animate-pulse"></span>
+                    Innovating the Future
+                </div>
+                
+                <h1 class="font-display text-5xl lg:text-7xl font-bold leading-tight mb-6 text-gray-900 dark:text-white">
+                    Welcome to <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 animate-pulse-slow">Getsetai Innovations</span>
+                </h1>
+                
+                <p class="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-xl leading-relaxed border-l-4 border-blue-500 pl-4">
+                    A premier ecosystem for AI & ML enthusiasts. We bridge the gap between raw data and real-world innovation through community-driven learning.
+                </p>
+
+                <!-- Event/Session Details Box -->
+                <div class="bg-white/60 dark:bg-gray-800/60 backdrop-blur-md border border-gray-200 dark:border-gray-700 rounded-2xl p-6 shadow-xl">
+                    <h3 class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">Next Live Session Details</h3>
+                    
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-6 mb-6">
+                        <!-- Date -->
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center text-blue-600 dark:text-blue-400">
+                                <i class="fa-regular fa-calendar-days text-lg"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Date</p>
+                                <p class="font-bold text-gray-900 dark:text-white">Nov 28, 2024</p>
+                            </div>
+                        </div>
+
+                        <!-- Time -->
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-900/40 flex items-center justify-center text-purple-600 dark:text-purple-400">
+                                <i class="fa-regular fa-clock text-lg"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Time</p>
+                                <p class="font-bold text-gray-900 dark:text-white">10:00 AM EST</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Link -->
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#join-session" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-center py-3 rounded-xl font-semibold transition shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 group">
+                            Join Session Now 
+                            <i class="fa-solid fa-arrow-right-long group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                        <a href="#details" class="px-6 py-3 text-gray-700 dark:text-gray-300 font-medium hover:text-blue-600 dark:hover:text-blue-400 transition flex items-center justify-center">
+                            View Agenda
+                        </a>
+                    </div>
+                </div>
             </div>
-            <h3 class="mt-4 text-xl font-semibold">Zero-config deploys</h3>
-            <p class="mt-2 text-slate-300/90">Edge-first infra with global caching and instant rollbacks.</p>
-          </div>
-        </article>
 
-        <article class="glass rounded-2xl p-6 tilt" data-tilt>
-          <div class="tilt-raise">
-            <div class="size-12 rounded-xl bg-gradient-to-br from-fuchsia-400 to-pink-500 grid place-items-center">
-              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+            <!-- Right Content: Advertising Display -->
+            <div class="lg:w-1/2 w-full flex justify-center lg:justify-end relative">
+                <!-- Abstract Tech Glow Behind -->
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-cyan-500/20 to-purple-500/20 blur-3xl rounded-full -z-10"></div>
+
+                <!-- The Advertising Card -->
+                <div class="relative w-full max-w-md perspective-1000 group">
+                    <div class="relative bg-gray-900 rounded-2xl border border-gray-700/50 overflow-hidden shadow-2xl shadow-black/50 transform transition-transform duration-500 hover:scale-[1.02] hover:-rotate-1">
+                        
+                        <!-- Top Bar (Browser/App style) -->
+                        <div class="bg-gray-800/80 backdrop-blur px-4 py-3 flex items-center justify-between border-b border-gray-700">
+                            <div class="flex gap-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <div class="text-xs text-gray-400 font-mono">getsetai.io/featured</div>
+                        </div>
+
+                        <!-- Image Section -->
+                        <div class="relative h-56 overflow-hidden">
+                            <div class="absolute inset-0 bg-blue-900/20 z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                 alt="Featured Tech" 
+                                 class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                            
+                            <!-- Floating Badge -->
+                            <div class="absolute bottom-4 right-4 z-20 bg-white/10 backdrop-blur border border-white/20 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                Sponsored
+                            </div>
+                        </div>
+
+                        <!-- Content Section -->
+                        <div class="p-6 bg-gradient-to-b from-gray-900 to-gray-800">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white mb-1">AI Innovation Summit</h3>
+                                    <p class="text-cyan-400 text-sm font-mono">@ Virtual Campus</p>
+                                </div>
+                                <div class="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded uppercase">
+                                    Free
+                                </div>
+                            </div>
+                            
+                            <p class="text-gray-400 text-sm mb-6 line-clamp-2">
+                                Discover the latest breakthroughs in Generative AI. Exclusive workshops with industry leaders from Google & Microsoft.
+                            </p>
+
+                            <div class="flex items-center justify-between pt-4 border-t border-gray-700">
+                                <div class="flex -space-x-2">
+                                    <img class="w-8 h-8 rounded-full border-2 border-gray-800" src="https://i.pravatar.cc/150?u=a" alt="User">
+                                    <img class="w-8 h-8 rounded-full border-2 border-gray-800" src="https://i.pravatar.cc/150?u=b" alt="User">
+                                    <div class="w-8 h-8 rounded-full border-2 border-gray-800 bg-gray-700 flex items-center justify-center text-xs text-white font-bold">99+</div>
+                                </div>
+                                <button class="text-white bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg text-sm font-medium transition">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Scanning Line Effect -->
+                        <div class="absolute top-0 left-0 w-full h-1 bg-cyan-500/50 shadow-[0_0_15px_rgba(6,182,212,0.5)] animate-[scan_3s_ease-in-out_infinite] opacity-0 group-hover:opacity-100 pointer-events-none"></div>
+                    </div>
+                </div>
             </div>
-            <h3 class="mt-4 text-xl font-semibold">Collaborative editor</h3>
-            <p class="mt-2 text-slate-300/90">Share links that just work. Comment and merge without context switches.</p>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- About -->
-  <section id="about" class="py-24 border-y border-white/10 bg-white/5">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 items-center">
-      <div class="order-2 lg:order-1">
-        <h2 class="text-3xl sm:text-4xl font-bold">About GetSetAI</h2>
-        <p class="mt-3 text-slate-300/90">
-          GetSetAI is officially registered under the Ministry of Micro, Small & Medium Enterprises (MSME), Government of India.
-          We’re a community-driven platform to collaborate, share knowledge, and build the future together.
-        </p>
-        <ul class="mt-4 space-y-2 text-slate-300/90">
-          <li>• Open model catalog & leaderboards</li>
-          <li>• Hackathons, meetups, mentorship</li>
-          <li>• Templates for FastAPI, Django, and Next.js</li>
-        </ul>
-      </div>
-      <div class="order-1 lg:order-2">
-        <img class="rounded-3xl w-full h-auto object-cover shadow-glow"
-             src="https://images.unsplash.com/photo-1555255707-c07966088b7b?q=80&w=1600&auto=format&fit=crop"
-             alt="Community building together">
-      </div>
-    </div>
-  </section>
-
- <!-- Our Services -->
-<section id="services" class="py-24">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="flex items-end justify-between gap-6 flex-wrap">
-      <div>
-        <h2 class="text-3xl sm:text-4xl font-bold text-fuchsia-300">Our Services</h2>
-        <p class="mt-2 text-slate-300/90 max-w-2xl">
-          We provide end-to-end solutions to help you build, grow, and scale your digital presence.
-        </p>
-      </div>
-      <a href="/contact" class="text-sm opacity-80 hover:opacity-100">Get in touch →</a>
-    </div>
-
-    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      <!-- Portfolio Building -->
-      <article class="rounded-3xl overflow-hidden glass group tilt" data-tilt>
-        <img class="h-40 w-full object-cover" src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=1600&auto=format&fit=crop" alt="Portfolio Building">
-        <div class="p-6">
-          <h3 class="text-xl font-semibold text-pink-400">Portfolio Building</h3>
-          <p class="mt-2 opacity-80">Showcase your skills with stunning, professional portfolios tailored to you.</p>
         </div>
-      </article>
-
-      <!-- Software Development -->
-      <article class="rounded-3xl overflow-hidden glass group tilt" data-tilt>
-        <img class="h-40 w-full object-cover" src="https://images.unsplash.com/photo-1526378722484-bd91ca387e72?q=80&w=1600&auto=format&fit=crop" alt="Software Development">
-        <div class="p-6">
-          <h3 class="text-xl font-semibold text-fuchsia-400">Software Development</h3>
-          <p class="mt-2 opacity-80">Custom web and mobile applications designed to meet your business needs.</p>
+        
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce text-gray-400 hidden lg:block">
+            <i class="fa-solid fa-chevron-down"></i>
         </div>
-      </article>
+    </section>
 
-      <!-- Promotion & Marketing -->
-      <article class="rounded-3xl overflow-hidden glass group tilt" data-tilt>
-        <img class="h-40 w-full object-cover" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1600&auto=format&fit=crop" alt="Promotion and Marketing">
-        <div class="p-6">
-          <h3 class="text-xl font-semibold text-purple-400">Promotion & Marketing</h3>
-          <p class="mt-2 opacity-80">Boost your brand’s visibility with strategic marketing and creative campaigns.</p>
+    <!-- Chapters Section -->
+    <section id="chapters" class="py-20 bg-white dark:bg-darkbg relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="font-display text-4xl font-bold text-gray-900 dark:text-white mb-4">Our Specialized <span class="text-blue-500">Chapters</span></h2>
+                <p class="text-gray-600 dark:text-gray-400 text-lg">Deep dive into specific technologies. Whether you are into data, development, or deployment, we have a niche for you.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Chapter 1: AI & ML -->
+                <div class="bg-gray-50 dark:bg-cardbg rounded-2xl p-8 border border-gray-100 dark:border-gray-700 card-hover group cursor-pointer">
+                    <div class="w-14 h-14 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors">
+                        <i class="fa-solid fa-brain text-2xl text-blue-600 dark:text-blue-400 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">AI & Machine Learning</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6">Explore Neural Networks, NLP, and Computer Vision with industry experts.</p>
+                    <span class="text-blue-600 dark:text-blue-400 font-medium group-hover:underline flex items-center">Join Chapter <i class="fa-solid fa-arrow-right ml-2 text-sm"></i></span>
+                </div>
+
+                <!-- Chapter 2: Data Science -->
+                <div class="bg-gray-50 dark:bg-cardbg rounded-2xl p-8 border border-gray-100 dark:border-gray-700 card-hover group cursor-pointer">
+                    <div class="w-14 h-14 bg-cyan-100 dark:bg-cyan-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:bg-cyan-600 transition-colors">
+                        <i class="fa-solid fa-database text-2xl text-cyan-600 dark:text-cyan-400 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Data Science & Analytics</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6">Master data visualization, big data processing, and predictive analytics.</p>
+                    <span class="text-cyan-600 dark:text-cyan-400 font-medium group-hover:underline flex items-center">Join Chapter <i class="fa-solid fa-arrow-right ml-2 text-sm"></i></span>
+                </div>
+
+                <!-- Chapter 3: Web & Cloud -->
+                <div class="bg-gray-50 dark:bg-cardbg rounded-2xl p-8 border border-gray-100 dark:border-gray-700 card-hover group cursor-pointer">
+                    <div class="w-14 h-14 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:bg-purple-600 transition-colors">
+                        <i class="fa-solid fa-cloud text-2xl text-purple-600 dark:text-purple-400 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Cloud & DevOps</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6">Scale your applications using AWS, Docker, Kubernetes, and CI/CD pipelines.</p>
+                    <span class="text-purple-600 dark:text-purple-400 font-medium group-hover:underline flex items-center">Join Chapter <i class="fa-solid fa-arrow-right ml-2 text-sm"></i></span>
+                </div>
+            </div>
         </div>
-      </article>
-    </div>
-  </div>
-</section>
+    </section>
 
+    <!-- Course Advertising Section -->
+    <section id="courses" class="py-20 bg-gray-900 relative overflow-hidden">
+        <!-- Background pattern -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#4b5563 1px, transparent 1px); background-size: 30px 30px;"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div class="max-w-2xl">
+                    <span class="text-yellow-400 font-bold tracking-wider uppercase text-sm mb-2 block">Premium Learning</span>
+                    <h2 class="font-display text-4xl font-bold text-white mb-4">Accelerate Your Career with Our <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">Pro Courses</span></h2>
+                    <p class="text-gray-400">Curated paths designed to take you from beginner to job-ready professional in record time.</p>
+                </div>
+                <button class="mt-6 md:mt-0 px-6 py-3 border border-gray-600 text-white rounded-lg hover:bg-gray-800 transition">View All Courses</button>
+            </div>
 
-<!-- Pricing -->
-<section id="pricing" class="py-24 border-t border-white/10 bg-gradient-to-b from-white/5 to-transparent">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="text-center max-w-2xl mx-auto">
-      <h2 class="text-3xl sm:text-4xl font-bold text-fuchsia-300">Affordable, Transparent Pricing</h2>
-      <p class="mt-3 text-slate-300/90">Choose the right service for your needs. No hidden costs, pay only for what you need.</p>
-    </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Course Card 1 -->
+                <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700 hover:border-yellow-500 transition group">
+                    <div class="relative h-48 bg-gray-700 overflow-hidden">
+                         <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Course Img" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                         <div class="absolute top-4 right-4 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded">BESTSELLER</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Full Stack AI Engineer</h3>
+                        <div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
+                            <span><i class="fa-regular fa-clock mr-1"></i> 12 Weeks</span>
+                            <span><i class="fa-solid fa-video mr-1"></i> 40+ Hrs</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-6">Learn to build and deploy AI applications using Python, React, and OpenAI API.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-white">Rs 3999/-</span>
+                            <button class="text-yellow-400 font-bold hover:text-yellow-300 transition">Enroll Now <i class="fa-solid fa-chevron-right text-xs"></i></button>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      <!-- Portfolio -->
-      <div class="glass rounded-2xl p-6">
-        <div class="text-sm px-2 py-1 rounded-full bg-white/10 inline-block">Portfolio</div>
-        <div class="mt-4 text-4xl font-extrabold">₹1,999<span class="text-base font-medium opacity-70">/one-time</span></div>
-        <p class="mt-2 opacity-80">Professional portfolio websites to showcase your work.</p>
-        <ul class="mt-4 space-y-2 text-sm">
-          <li>• Custom personal portfolio</li>
-          <li>• Responsive & modern design</li>
-          <li>• Basic SEO optimization</li>
-        </ul>
-        <a href="/contact" class="mt-6 inline-flex w-full justify-center rounded-xl bg-fuchsia-600 hover:bg-fuchsia-700 px-4 py-2">Get Started</a>
-      </div>
+                <!-- Course Card 2 -->
+                <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700 hover:border-blue-500 transition group">
+                    <div class="relative h-48 bg-gray-700 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Course Img" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Data Science Bootcamp</h3>
+                        <div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
+                            <span><i class="fa-regular fa-clock mr-1"></i> 16 Weeks</span>
+                            <span><i class="fa-solid fa-certificate mr-1"></i> Certified</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-6">Master Pandas, NumPy, Scikit-Learn and deep learning concepts from scratch.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-white">$Rs 3999/-</span>
+                            <button class="text-blue-400 font-bold hover:text-blue-300 transition">Enroll Now <i class="fa-solid fa-chevron-right text-xs"></i></button>
+                        </div>
+                    </div>
+                </div>
 
-      <!-- Software -->
-      <div class="glass rounded-2xl p-6 border border-fuchsia-500/40 shadow-glow relative">
-        <div class="absolute -top-3 right-4 text-xs px-2 py-1 rounded-full bg-gradient-to-r from-pink-600 to-fuchsia-600">Popular</div>
-        <div class="text-sm px-2 py-1 rounded-full bg-white/10 inline-block">Software Development</div>
-        <div class="mt-4 text-4xl font-extrabold">₹4,999<span class="text-base font-medium opacity-70">/starting</span></div>
-        <p class="mt-2 opacity-80">Custom applications designed for startups and businesses.</p>
-        <ul class="mt-4 space-y-2 text-sm">
-          <li>• Web & mobile applications</li>
-          <li>• Scalable architecture</li>
-          <li>• Ongoing support & updates</li>
-        </ul>
-        <a href="/contact" class="mt-6 inline-flex w-full justify-center rounded-xl bg-gradient-to-r from-pink-600 to-fuchsia-600 px-4 py-2">Build Software</a>
-      </div>
-
-      <!-- Marketing -->
-      <div class="glass rounded-2xl p-6">
-        <div class="text-sm px-2 py-1 rounded-full bg-white/10 inline-block">Promotion & Marketing</div>
-        <div class="mt-4 text-4xl font-extrabold">₹9,999<span class="text-base font-medium opacity-70">/starting</span></div>
-        <p class="mt-2 opacity-80">Boost your reach with digital campaigns & brand strategy.</p>
-        <ul class="mt-4 space-y-2 text-sm">
-          <li>• Social media marketing</li>
-          <li>• SEO & growth campaigns</li>
-          <li>• Brand promotion strategies</li>
-        </ul>
-        <a href="/contact" class="mt-6 inline-flex w-full justify-center rounded-xl bg-fuchsia-600 hover:bg-fuchsia-700 px-4 py-2">Promote Now</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-  <!-- FAQ -->
-<section id="faq" class="py-24">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="max-w-2xl">
-      <h2 class="text-3xl sm:text-4xl font-bold">Frequently Asked Questions</h2>
-      <p class="mt-2 text-slate-300/90">Can’t find your answer? Reach us at <a href="mailto:support@getsetai.in" class="underline hover:text-sky-400">support@getsetai.in</a></p>
-    </div>
-
-    <div class="mt-8 grid gap-4">
-      
-      <details class="glass rounded-xl p-5">
-        <summary class="cursor-pointer select-none font-medium">What does GetSetAI Innovations do?</summary>
-        <p class="mt-3 opacity-80">
-          We design, fine-tune, and deploy AI/ML models for businesses and developers. 
-          From NLP to Computer Vision and Agents, our goal is to make AI deployment as seamless as possible.
-        </p>
-      </details>
-
-      <details class="glass rounded-xl p-5">
-        <summary class="cursor-pointer select-none font-medium">Do you offer pre-built AI models?</summary>
-        <p class="mt-3 opacity-80">
-          Yes. You can explore our growing library of pre-trained models for text, vision, speech, and more. 
-          These can be used out-of-the-box or customized for your specific use case.
-        </p>
-      </details>
-
-      <details class="glass rounded-xl p-5">
-        <summary class="cursor-pointer select-none font-medium">Can I integrate my own data or API keys?</summary>
-        <p class="mt-3 opacity-80">
-          Absolutely. You can bring your own dataset for fine-tuning and even use your API keys (OpenAI, Anthropic, or open-source frameworks) inside our platform.
-        </p>
-      </details>
-
-      <details class="glass rounded-xl p-5">
-        <summary class="cursor-pointer select-none font-medium">How does model deployment work?</summary>
-        <p class="mt-3 opacity-80">
-          We provide one-click deployment to cloud or on-premise environments. 
-          Every commit is built, versioned, and can be rolled back instantly—so your models are always production-ready.
-        </p>
-      </details>
-
-      <details class="glass rounded-xl p-5">
-        <summary class="cursor-pointer select-none font-medium">Is there a free plan or trial?</summary>
-        <p class="mt-3 opacity-80">
-          Yes. We offer limited free credits so you can try building and deploying models. 
-          For startups and enterprises, we also provide custom subscription plans.
-        </p>
-      </details>
-
-    </div>
-  </div>
-</section>
-
-
-  <!-- CTA -->
-  <section id="cta" class="py-24 border-t border-white/10">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="glass rounded-3xl p-10 md:p-16 text-center relative overflow-hidden">
-        <div class="absolute -inset-16 bg-gradient-to-tr from-brand-500/10 via-sky-500/10 to-emerald-400/10 blur-2xl"></div>
-        <h2 class="text-3xl sm:text-4xl font-extrabold">Ready to build with GetSetAI?</h2>
-        <p class="mt-3 text-slate-300/90 max-w-2xl mx-auto">Create your first project in seconds. Collaborate live. Deploy worldwide. All from one place.</p>
-        <div class="mt-8 flex flex-wrap gap-4 justify-center">
-          <a href="#" class="btn-primary inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-brand-600 to-sky-600 px-6 py-3 text-base shadow-glow"><span>Create free account</span><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a>
-          <a href="#pricing" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl glass">See pricing</a>
+                <!-- Course Card 3 -->
+                <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700 hover:border-purple-500 transition group">
+                    <div class="relative h-48 bg-gray-700 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Course Img" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                         <div class="absolute top-4 right-4 bg-purple-500 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Generative AI Masterclass</h3>
+                        <div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
+                            <span><i class="fa-regular fa-clock mr-1"></i> 8 Weeks</span>
+                            <span><i class="fa-solid fa-robot mr-1"></i> Advanced</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-6">Dive deep into LLMs, Prompt Engineering, and Stable Diffusion models.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-white">Rs 4999/-</span>
+                            <button class="text-purple-400 font-bold hover:text-purple-300 transition">Enroll Now <i class="fa-solid fa-chevron-right text-xs"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Footer -->
-  <footer class="border-t border-white/10 py-12 text-sm bg-white/5 backdrop-blur">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid md:grid-cols-3 gap-8 items-start">
-      <div class="flex items-center gap-3">
-        <span class="h-8 w-8 rounded-xl bg-gradient-to-br from-brand-400 to-sky-500"></span>
-        <div>
-          <div class="font-semibold">GetSetAI</div>
-          <div class="opacity-70">© 2025</div>
+    <!-- Events Section -->
+    <section id="events" class="py-20 bg-gray-50 dark:bg-darkbg">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl font-bold text-gray-900 dark:text-white mb-4">Upcoming <span class="text-blue-500">Events</span></h2>
+                <p class="text-gray-600 dark:text-gray-400">Hackathons, Webinars, and Meetups curated for you.</p>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Event Item -->
+                <div class="bg-white dark:bg-cardbg p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col md:flex-row gap-6 items-center transition hover:border-blue-500">
+                    <div class="flex-shrink-0 w-full md:w-24 h-24 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex flex-col items-center justify-center text-blue-600 dark:text-blue-400">
+                        <span class="text-2xl font-bold">24</span>
+                        <span class="text-sm font-semibold uppercase">Nov</span>
+                    </div>
+                    <div class="flex-grow text-center md:text-left">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">Global AI Hackathon 2024</h3>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm mt-1"><i class="fa-solid fa-location-dot mr-1"></i> Online • 48 Hours</p>
+                        <p class="text-gray-600 dark:text-gray-300 mt-2">Build the future of AI. Compete for prizes.</p>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <button class="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition">Register Now</button>
+                    </div>
+                </div>
+
+                <!-- Event Item -->
+                <div class="bg-white dark:bg-cardbg p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col md:flex-row gap-6 items-center transition hover:border-blue-500">
+                    <div class="flex-shrink-0 w-full md:w-24 h-24 bg-purple-100 dark:bg-purple-900/20 rounded-lg flex flex-col items-center justify-center text-purple-600 dark:text-purple-400">
+                        <span class="text-2xl font-bold">02</span>
+                        <span class="text-sm font-semibold uppercase">Dec</span>
+                    </div>
+                    <div class="flex-grow text-center md:text-left">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">Machine Learning in Healthcare</h3>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm mt-1"><i class="fa-solid fa-video mr-1"></i> Zoom Webinar</p>
+                        <p class="text-gray-600 dark:text-gray-300 mt-2">Expert talk with Dr. Sarah Chen on predictive diagnostics.</p>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <button class="px-6 py-2 bg-transparent border border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400 rounded-full hover:bg-blue-50 dark:hover:bg-blue-900/20 transition">View Details</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <nav class="grid grid-cols-2 gap-4 md:justify-center">
-        <a href="#about">About</a>
-        <a href="#community">Community</a>
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-      </nav>
-      <div class="md:text-right opacity-80">
-        <div>MSME Registered • Government of India</div>
-        <div>support@getsetai.in</div>
-      </div>
+    </section>
+
+    <!-- Newsletter/Subscribe -->
+    <section class="py-20 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-600 to-cyan-600"></div>
+        <div class="max-w-4xl mx-auto px-4 relative z-10 text-center text-white">
+            <i class="fa-regular fa-paper-plane text-4xl mb-4"></i>
+            <h2 class="text-3xl font-bold mb-4">Stay Updated with Tech Trends</h2>
+            <p class="text-blue-100 mb-8">Get the latest news, free resources, and event invites directly to your inbox.</p>
+            
+            <form onsubmit="event.preventDefault(); alert('Thanks for subscribing!');" class="flex flex-col sm:flex-row gap-4 justify-center">
+                <input type="email" placeholder="Enter your email address" class="px-6 py-3 rounded-full text-gray-900 w-full sm:w-96 focus:outline-none focus:ring-2 focus:ring-white" required>
+                <button type="submit" class="px-8 py-3 bg-gray-900 text-white rounded-full hover:bg-gray-800 transition shadow-lg">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-darkbg border-t border-gray-200 dark:border-gray-800 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <!-- Brand -->
+                <div class="col-span-1 md:col-span-1">
+                     <div class="flex items-center mb-4">
+
+                        <span class="font-bold text-xl text-gray-900 dark:text-white">Getsetai Innovations</span>
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+                        Building the future of technology, one developer at a time. Join the revolution.
+                    </p>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-4">Community</h4>
+                    <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                        <li><a href="#" class="hover:text-blue-500">About Us</a></li>
+                        <li><a href="#" class="hover:text-blue-500">Chapters</a></li>
+                        <li><a href="#" class="hover:text-blue-500">Events</a></li>
+                        <li><a href="#" class="hover:text-blue-500">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-4">Resources</h4>
+                    <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                        <li><a href="#" class="hover:text-blue-500">Pro Courses</a></li>
+                        <li><a href="#" class="hover:text-blue-500">Documentation</a></li>
+                        <li><a href="#" class="hover:text-blue-500">Career Guide</a></li>
+                        <li><a href="#" class="hover:text-blue-500">Mentorship</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social -->
+                <div>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-4">Connect with Us</h4>
+                    <div class="flex space-x-4">
+                        <!-- <a href="#" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-blue-600 hover:text-white transition">
+                            <i class="fa-brands fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-blue-600 hover:text-white transition">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a> -->
+                        <a href="https://www.instagram.com/getsetai.in" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-pink-600 hover:text-white transition">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <!-- <a href="#" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-black hover:text-white transition">
+                            <i class="fa-brands fa-github"></i>
+                        </a> -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 dark:border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-gray-500 dark:text-gray-400">&copy; 2024 Getsetai Innovations Community. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0 text-sm text-gray-500 dark:text-gray-400">
+                    <a href="#" class="hover:text-gray-900 dark:hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-gray-900 dark:hover:text-white">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 z-[100] hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity backdrop-blur-sm" onclick="closeModal('login')"></div>
+
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+            <div class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full">
+                <div class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mt-3 text-center sm:mt-0 sm:text-left w-full">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white mb-6" id="modal-title">Welcome Back</h3>
+                            <form class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                                    <input type="email" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
+                                    <input type="password" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                </div>
+                                <button type="button" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition" onclick="closeModal('login')">Sign In</button>
+                            </form>
+                            <div class="mt-4 text-center">
+                                <span class="text-sm text-gray-500">Don't have an account? <button onclick="closeModal('login'); openModal('signup')" class="text-blue-600 hover:underline">Sign up</button></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 sm:ml-3 sm:w-auto sm:text-sm" onclick="closeModal('login')">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </footer>
 
-  <!-- Interactions / Animations / Search -->
-  <script>
-  // --- Model Catalog Data ---
-  const CATALOG = [
-    {
-      id: "marks",
-      name: "Machine Learning - Student Marks Prediction",
-      desc: "Predict student marks using ML models.",
-      cat: "ml",
-      img: "https://dummyimage.com/600x400/0f172a/ffffff&text=Student+Marks+Prediction",
-      link: "https://student-marks-prediction-ml-model-czutaxvjvugg3kaedvyuot.streamlit.app/"
-    },
-    {
-      id: "resume",
-      name: "AI Resume Builder & Job Finder - HIREFIREAI",
-      desc: "Build resumes, check ATS score, and find jobs.",
-      cat: "ai",
-      img: "https://dummyimage.com/600x400/1e293b/ffffff&text=HireFireAI",
-      link: "https://hirefireai.cloud"
-    },
-    {
-      id: "spamshield",
-      name: "Spam Shield AI - NLP Spam Detection",
-      desc: "AI-powered spam detection & filtering system.",
-      cat: "nlp",
-      img: "https://dummyimage.com/600x400/334155/ffffff&text=Spam+Shield+AI",
-      link: "https://spamshieldai.in"
-    }
-  ];
+    <!-- Signup Modal (Similar Structure) -->
+    <div id="signupModal" class="fixed inset-0 z-[100] hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity backdrop-blur-sm" onclick="closeModal('signup')"></div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full">
+                <div class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="mt-3 text-center sm:mt-0 sm:text-left w-full">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white mb-6">Create Account</h3>
+                        <form id="signupForm" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
+                                <input type="text" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                                <input type="email" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
+                                <input type="password" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <button id="signupSubmitBtn" type="button" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition" onclick="submitSignup(event)">Sign Up</button>
+                            <div id="signupStatus" class="mt-3 text-center text-sm text-gray-600 hidden">Under review</div>
+                        </form>
+                    </div>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-500 text-base font-medium text-white hover:bg-gray-600 sm:ml-3 sm:w-auto sm:text-sm" onclick="closeModal('signup')">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  // Elements
-  const modelSearch = document.getElementById('modelSearch');
-  const modelFilter = document.getElementById('modelFilter');
-  const resultsGrid = document.getElementById('resultsGrid');
-  const suggestions = document.getElementById('suggestions');
-  const resultCount = document.getElementById('resultCount');
-  const searchBtn = document.getElementById('searchBtn');
-
-  // Render function
-  function render(models) {
-    resultsGrid.innerHTML = '';
-    models.forEach(m => {
-      const card = document.createElement('article');
-      card.className = 'rounded-3xl overflow-hidden glass group tilt';
-      card.setAttribute('data-tilt','');
-      card.innerHTML = `
-        <img class="h-40 w-full object-cover" src="${m.img}" alt="">
-        <div class="p-6">
-          <div class="text-xs px-2 py-1 rounded-full bg-white/10 inline-block">${m.cat.toUpperCase()}</div>
-          <h3 class="mt-3 text-lg font-semibold">${m.name}</h3>
-          <p class="mt-1 opacity-80">${m.desc}</p>
-          <div class="mt-4 flex gap-3">
-            <a class="btn-primary rounded-lg bg-gradient-to-r from-brand-600 to-sky-600 px-3 py-2 text-sm shadow-glow" href="${m.link}" target="_blank">Open</a>
-          </div>
-        </div>`;
-      resultsGrid.appendChild(card);
-    });
-    resultCount.textContent = `${models.length} result${models.length===1?'':'s'} • live filter`;
-  }
-
-  // Filter function
-  function filterModels() {
-    const term = (modelSearch.value || '').toLowerCase().trim();
-    const cat = modelFilter?.value || "all";
-    const filtered = CATALOG.filter(m => {
-      const inCat = (cat === 'all') || (m.cat === cat);
-      const inText = !term || 
-        m.name.toLowerCase().includes(term) || 
-        m.desc.toLowerCase().includes(term) || 
-        m.id.includes(term);
-      return inCat && inText;
-    });
-    render(filtered);
-    showSuggestions(term, filtered);
-    return filtered;
-  }
-
-  // Suggestions
-  function showSuggestions(term, filtered) {
-    if (!term) { suggestions.classList.add('hidden'); suggestions.innerHTML=''; return; }
-    const names = filtered.slice(0,5).map(m => m.name);
-    suggestions.classList.remove('hidden');
-    suggestions.innerHTML = `
-      <div class="text-xs opacity-80 mb-2">Suggestions</div>
-      <div class="flex flex-wrap gap-2">
-        ${names.map(n => `<button class="px-3 py-1 rounded-full bg-white/10 hover:bg-white/15 text-xs suggestion">${n}</button>`).join('')}
-      </div>`;
-    suggestions.querySelectorAll('.suggestion').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const selectedModel = CATALOG.find(m => m.name === btn.textContent);
-        if (selectedModel) {
-          window.open(selectedModel.link, "_blank"); // 🔥 redirect directly
+    <!-- JavaScript for Logic -->
+    <script>
+        // Dark Mode Logic
+        const html = document.documentElement;
+        
+        // Initialize theme: default to light mode unless user explicitly chose dark.
+        // Respect only an explicit stored preference to avoid following system dark mode.
+        const storedTheme = localStorage.getItem('theme');
+        if (storedTheme === 'dark') {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
         }
-      });
-    });
-  }
 
-  // Event listeners
-  modelSearch.addEventListener('input', filterModels);
-  modelFilter?.addEventListener('change', filterModels);
+        function toggleTheme() {
+            html.classList.toggle('dark');
+            if (html.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        }
 
-  searchBtn?.addEventListener('click', () => {
-    const results = filterModels();
-    if (results.length > 0) {
-      window.open(results[0].link, "_blank"); // 🔥 go to first matching result
-    }
-  });
+        // Mobile Menu Toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+        }
 
-  // Initial render
-  render(CATALOG);
-  </script>
+        // Modal Logic
+        function openModal(type) {
+            const modal = document.getElementById(type + 'Modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                // Close mobile menu if open
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            }
+        }
 
-  <!-- Add this script just before </body> -->
-<script>
-  // --- Existing Model Catalog Script ---
-  // ...existing code...
+        function closeModal(type) {
+            const modal = document.getElementById(type + 'Modal');
+            if (modal) {
+                modal.classList.add('hidden');
+            }
+        }
 
-  // --- Mobile Drawer Menu Toggle ---
-  const menuBtn = document.getElementById('menuBtn');
-  const mobileDrawer = document.getElementById('mobileDrawer');
+        // Close modals on Escape key
+        document.onkeydown = function(evt) {
+            evt = evt || window.event;
+            if (evt.keyCode == 27) {
+                closeModal('login');
+                closeModal('signup');
+            }
+        };
 
-  menuBtn.addEventListener('click', function () {
-    mobileDrawer.classList.toggle('hidden');
-  });
+        // Signup submission handler: show 'Under review' label and disable inputs
+        function submitSignup(evt) {
+            evt = evt || window.event;
+            if (evt && typeof evt.preventDefault === 'function') evt.preventDefault();
 
-  // Optional: Close drawer when a link is clicked (for better UX)
-  mobileDrawer.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileDrawer.classList.add('hidden');
-    });
-  });
-</script>
+            const form = document.getElementById('signupForm');
+            const status = document.getElementById('signupStatus');
+            const btn = document.getElementById('signupSubmitBtn');
 
+            if (form) {
+                // Disable all inputs inside the form to indicate submission
+                const elements = Array.from(form.querySelectorAll('input, button'));
+                elements.forEach(el => {
+                    // Keep the close button in modal (outside this form) functional
+                    el.disabled = true;
+                });
+            }
+
+            if (btn) {
+                btn.classList.add('opacity-60', 'cursor-not-allowed');
+            }
+
+            if (status) {
+                status.textContent = 'Under review';
+                status.classList.remove('hidden');
+            }
+
+            // Optionally, you could auto-close the modal after a delay or send the data to the server here.
+        }
+    </script>
 </body>
 </html>
